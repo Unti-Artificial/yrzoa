@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrz.oa.core.dao.InformDao">
+    <!-- 发布通知 -->
+    <insert id="publishInform" parameterType="Inform">
+      insert  into oa_inform(
+      informContent,
+      informCreateTime,
+      informPublisher
+
+      ) values (
+     #{content},
+     #{time},
+     #{publisher}
+      )
+    </insert>
+    <!-- 获取通知内容-->
+    <select id="getInformContent" parameterType="Integer">
+       select  * from  where informId = #{id}
+    </select>
+    <!--修改通知 -->
+    <update id="updateInform" parameterType="String">
+        update oa_publish
+        <set>
+            <if test="informContent !=null">
+                informContent = #{content}
+            </if>
+        </set>
+    </update>
+</mapper>

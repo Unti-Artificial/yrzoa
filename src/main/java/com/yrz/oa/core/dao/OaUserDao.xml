@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrz.oa.core.dao.OaUserDao">
+    <!-- 用户登陆 -->
+    <select id="doLogin" parameterType="String" resultType="OaUser">
+	    select *
+	    from oa_user
+	    where userAccount = #{account}
+	    and userPassword = #{password}
+	    and userRole = #{role}
+	    and userState = '1'
+    </select>
+    <!--查询用户信息 -->
+    <select id="doFindIns" parameterType="String" resultType="OaUser">
+       select *
+       from oa_user
+       where
+       username = #{userName}
+	</select>
+    <!--用户修改密码 -->
+    <update id="updateInf" parameterType="String">
+        update oa_user
+        <set>
+            <if test="userPassword !=null ">
+                userPassword = #{userPassword}
+            </if>
+        </set>
+    </update>
+    <!--注册账户 -->
+    <insert id="doRegister" parameterType="OaUser">
+       insert into oa_user(
+         userEmail,
+         userPhone,
+         userName,
+         userAccount,
+         userPassword
+       )
+       values (
+         #{userEmail},
+         #{userPhone},
+         #{userName},
+         #{userAccount},
+         #{userPassword}
+       )
+    </insert>
+    <!--用户修改自己账户的信息 -->
+    <update id="updateBasicInf" parameterType="OaUser">
+      update oa_user
+      <set>
+          <if test="userName !=null">
+            userName = #{userName}
+          </if>
+         <if test="userEmail !=null">
+           userEmail = #{userEmail}
+         </if>
+         <if test="userPhone !=null">
+             userPhone = #{userPhone}
+         </if>
+      </set>
+    </update>
+</mapper>

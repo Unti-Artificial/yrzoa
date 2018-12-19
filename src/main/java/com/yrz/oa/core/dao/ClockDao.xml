@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrz.oa.core.dao.ClockDao">
+    <!-- 打卡 -->
+    <insert id="ClockIn" parameterType="Clock">
+      insert  into oa_clock(
+      ClockUser,
+      ClockCreateTime
+      ) values (
+      #{user},
+      #{time}
+      )
+    </insert>
+    <!-- 添加打卡次数 -->
+    <insert id="ClockInTime" parameterType="ClockTime">
+      insert  into oa_clock_Time(
+      ClockUser,
+      ClockInDegree,
+      ClockInCreateTime
+      ) values (
+      #{username},
+      #{degree},
+      #{intime}
+      )
+    </insert>
+    <!-- 查询是否今日已经打过卡 -->
+    <select id="selectDegree" resultType="Integer" parameterType="String">
+        select sum(ClockIndegree)
+        from oa_clock_time
+        where ClockInTime = #{present}
+        and ClockUserName = #{username}
+      </select>
+    <!-- 根据用户名和每月查询当月打卡总数-->
+    <select id="selectTotalByNameAndDate" parameterType="String" resultType="Integer">
+       select sum(ClockIndegree)
+       from oa_clock_time
+       where ClockUserName = #{username}
+       and ClockInCreateTime <= #{date}
+    </select>
+
+
+</mapper>

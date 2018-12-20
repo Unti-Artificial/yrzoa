@@ -17,8 +17,6 @@ import java.util.Date;
 public class ClockController {
     @Autowired
     private ClockService clockService;
-
-
     /**
      *
      * @param clock
@@ -44,9 +42,16 @@ public class ClockController {
             }
         }
        else {
-           return "";
+           return "null";
         }
     }
+
+    /**
+     *
+     * @param username
+     * @param date
+     * @return
+     */
     @RequestMapping("/findTotal.action")
     @ResponseBody
     public Integer findTotal(String username,String date){

@@ -11,12 +11,12 @@
 	    and userRole = #{role}
 	    and userState = '1'
     </select>
-    <!--查询用户信息 -->
-    <select id="doFindIns" parameterType="String" resultType="OaUser">
+    <!-- 用户查看自己的个人信息 -->
+    <select id="doFindIns" parameterType="Integer" resultType="OaUser">
        select *
        from oa_user
        where
-       username = #{userName}
+       userId = #{id}
 	</select>
     <!--用户修改密码 -->
     <update id="updateInf" parameterType="String">

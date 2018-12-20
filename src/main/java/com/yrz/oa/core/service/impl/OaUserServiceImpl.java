@@ -23,8 +23,8 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public OaUser doFindIns(String username) {
-		return oaUserDao.doFindIns(username);
+	public OaUser doFindIns(Integer id) {
+		return oaUserDao.doFindIns(id);
 	}
 
 	@Override

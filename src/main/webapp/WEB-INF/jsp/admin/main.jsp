@@ -41,8 +41,10 @@
                      <i class="layui-icon layui-icon-username"></i>
                     欢迎您，${ADMIN.userName}
                 </a>
+            </li>
+            <li>
                 <dl class="layui-nav-child">
-                    <dd><a href="" onclick="Information()">基本资料</a></dd>
+                    <dd><a href="" onclick="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
@@ -60,7 +62,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">我的面板</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="#">个人信息</a></dd>
+                        <dd><a href="<%=basePath%>oaSystem/">个人信息</a></dd>
                         <dd><a href="#">修改密码</a></dd>
                         <dd><a href="#">日志信息</a></dd>
                         <dd><a href="#">今日工作</a></dd>
@@ -85,7 +87,7 @@
         <div style="padding: 15px;">内容主体区域</div>
     </div>
 
-    <div class="layui-footer">
+    <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
     </div>
@@ -94,11 +96,9 @@
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 <script>
-    form.onclick('')
-    //JavaScript代码区域
-    layui.use('element', function(){
-        var element = layui.element;
-
+    layui.use(['jquery', 'layer'], function(){
+        var $ = layui.$ //重点处
+            ,layer = layui.layer;
     });
 </script>
 </html>

@@ -8,7 +8,7 @@ public interface OaUserDao {
                             @Param("password") String password,
                             @Param("role") String role
      );
-     OaUser doFindIns(@Param("username")String username);
+     OaUser doFindIns(Integer id);
      int updateInf(OaUser oaUser);
      int doRegister(OaUser oaUser);
      int updateBasicInf(OaUser oaUser);

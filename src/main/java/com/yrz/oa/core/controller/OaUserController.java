@@ -74,8 +74,17 @@ public class OaUserController {
 	//登陆用户查询自己的登陆信息
 	@RequestMapping(value = "/doFindInf.action")
 	@ResponseBody
-	public OaUser doFindInf(String username){
-		OaUser oaUser = oaUserService.doFindIns(username);
+	public OaUser doFindInf(Integer id){
+		OaUser oaUser = oaUserService.doFindIns(id);
 		return oaUser;
+	}
+
+	/**
+	 *  跳转至主页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toMain.action")
+	public String JumpToMain(){
+		return "admin/main";
 	}
 }

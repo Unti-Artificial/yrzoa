@@ -36,8 +36,6 @@
        select sum(ClockIndegree)
        from oa_clock_time
        where ClockUserName = #{username}
-       and ClockInCreateTime <= #{date}
+       and ClockInCreateTime >= #{date}
     </select>
-
-
 </mapper>

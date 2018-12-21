@@ -5,10 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 public interface OaUserDao {
       OaUser doLogin(@Param("account") String account,
-                            @Param("password") String password,
-                            @Param("role") String role
+                            @Param("password") String password
      );
-     OaUser doFindIns(Integer id);
+     OaUser doFindIns(Integer userId);
      int updateInf(OaUser oaUser);
      int doRegister(OaUser oaUser);
      int updateBasicInf(OaUser oaUser);

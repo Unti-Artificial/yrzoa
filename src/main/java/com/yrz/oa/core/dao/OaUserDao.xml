@@ -8,7 +8,6 @@
 	    from oa_user
 	    where userAccount = #{account}
 	    and userPassword = #{password}
-	    and userRole = #{role}
 	    and userState = '1'
     </select>
     <!-- 用户查看自己的个人信息 -->
@@ -16,7 +15,7 @@
        select *
        from oa_user
        where
-       userId = #{id}
+       userId = #{userId}
 	</select>
     <!--用户修改密码 -->
     <update id="updateInf" parameterType="String">

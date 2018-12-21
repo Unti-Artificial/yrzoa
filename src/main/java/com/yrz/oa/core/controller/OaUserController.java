@@ -26,33 +26,30 @@ public class OaUserController {
 	 * 用户登录
 	 */
 	@RequestMapping(value = "/Login.action")
-	public String login(String account,String password,String role ,Model model,
+	public String login(String account,String password,Model model,
                                                           HttpSession session) {
-		OaUser oaUser = oaUserService.doLogin(account, password, role);
-		if (oaUser != null && oaUser.getUserRole().equals("admin")) {
-			session.setAttribute("ADMIN", oaUser);
+		OaUser oaUser = oaUserService.doLogin(account, password);
+		Integer userId = oaUser.getUserId();
+		String userName = oaUser.getUserName();
+		String userRole = oaUser.getUserRole();
+		if (oaUser != null && userRole.equals("admin")) {
+			String role = userRole.replace("admin","管理员");
+			model.addAttribute("userId",userId);
+			model.addAttribute("userName", userName);
+			model.addAttribute("userRole",role);
 			return "admin/main";
-		} else if (oaUser != null && oaUser.getUserRole().equals("user")) {
-			session.setAttribute("USER", oaUser);
+		} else if (oaUser != null && userRole.equals("user")) {
+			String role = userRole.replace("user","用户");
+			userRole.replace("user","用户");
+			model.addAttribute("userId",userId);
+			model.addAttribute("userName", userName);
+			model.addAttribute("userRole",role);
 			return "user/main";
 		} else {
-			model.addAttribute("msg", "用户名，密码或者身份错误，请重新输入登陆信息");
+			model.addAttribute("msg", "用户名或密码错误，请重新输入登陆信息");
 			return "login";
-
 		}
 	}
-	/**
-	 *
-	 */
-	@RequestMapping(value = "/toAdminMain.action")
-	public String toAdminMain() {
-    return "admin/main";
-	}
-	@RequestMapping(value = "/toUserMain.action")
-	public String toUserMain() {
-		return "user/main";
-	}
-	
 	/**
 	 * 退出登录
 	 */
@@ -70,12 +67,16 @@ public class OaUserController {
 	public String toLogin() {
 	    return "login";
 	}
-
+	/**
+	 *  查询自己所有的信息
+ 	 * @param userId
+	 * @return
+	 */
 	//登陆用户查询自己的登陆信息
 	@RequestMapping(value = "/doFindInf.action")
 	@ResponseBody
-	public OaUser doFindInf(Integer id){
-		OaUser oaUser = oaUserService.doFindIns(id);
+	public OaUser doFindInf(Integer userId){
+		OaUser oaUser = oaUserService.doFindIns(userId);
 		return oaUser;
 	}
 

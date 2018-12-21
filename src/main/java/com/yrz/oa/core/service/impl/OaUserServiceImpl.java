@@ -17,14 +17,14 @@ public class OaUserServiceImpl implements OaUserService {
 	private OaUserDao oaUserDao;
 	// 通过账号和密码查询用户
 	@Override
-	public OaUser doLogin(String account, String password,String role) {
-		OaUser oaUser = this.oaUserDao.doLogin(account,password,role);
+	public OaUser doLogin(String account, String password) {
+		OaUser oaUser = this.oaUserDao.doLogin(account,password);
 		return oaUser;
 	}
 
 	@Override
-	public OaUser doFindIns(Integer id) {
-		return oaUserDao.doFindIns(id);
+	public OaUser doFindIns(Integer userId) {
+		return oaUserDao.doFindIns(userId);
 	}
 
 	@Override

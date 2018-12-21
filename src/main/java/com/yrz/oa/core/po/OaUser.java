@@ -8,6 +8,15 @@ public class OaUser {
     private String userRole;
     private String userEmail;
     private String userPhone;
+    private Integer userId;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public String getUserEmail() {
         return userEmail;

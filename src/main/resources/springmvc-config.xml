@@ -29,6 +29,7 @@
     <mvc:resources location="/layui/" mapping="/layui/**/*" />
     <mvc:resources location="/images/" mapping="/images/**" />
     <mvc:resources location="/jsplug/" mapping="/jsplug/**"  />
+    <mvc:resources location="/login/" mapping="/login/**/*"  />
     <!-- 配置视图解释器ViewResolver -->
     <bean id="jspViewResolver" class=
     "org.springframework.web.servlet.view.InternalResourceViewResolver">

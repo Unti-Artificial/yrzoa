@@ -37,18 +37,14 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                     <i class="layui-icon layui-icon-username"></i>
-                    欢迎您，${ADMIN.userName}
-                </a>
-            </li>
-            <li>
+                <a href="">欢迎您,${userName}</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="" onclick="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="javascript:;">身份:${userRole}</a></dd>
+                    <dd><a href="<%=basePath%>oaSystem/doFindInf.action" onclick="doFindInf(${userId})">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="<%=basePath%>oaSystem/Logout.action">注销登陆</a></dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="<%=basePath%>oaSystem/Logout.action">注销登陆</a></li>
         </ul>
     </div>
 
@@ -60,31 +56,57 @@
                  <a href="<%=basePath%>oaSystem/toMain.action">后台主页</a>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">我的面板</a>
+                    <a class="" href="javascript:;">个人信息管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="<%=basePath%>oaSystem/">个人信息</a></dd>
-                        <dd><a href="#">修改密码</a></dd>
-                        <dd><a href="#">日志信息</a></dd>
-                        <dd><a href="#">今日工作</a></dd>
+                        <dd><a href="<%=basePath%>oaSystem/doFindInf.action">查看个人信息</a></dd>
+                        <dd><a href="#" onclick="doFindInf()">修改个人信息</a></dd>
+                        <dd><a href="<%=basePath%>">修改登录密码</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">工作管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">未处理申请</a></dd>
-                        <dd><a href="javascript:;">列表二</a></dd>
-                        <dd><a href="">超链接</a></dd>
+                        <dd><a href="javascript:;"></a></dd>
+                        <dd><a href="javascript:;"></a></dd>
+                        <dd><a href="javascript:;"></a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
+                <li class="layui-nav-item"><a href="">系统管理</a></li>
+                <li class="layui-nav-item"><a href=""></a></li>
             </ul>
         </div>
     </div>
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md9">
+
+                </div>
+                <div class="layui-col-md3">
+                    <div id="date"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md3">
+                     <h2>今日天气预报</h2>
+                </div>
+                <div class="layui-col-md9">
+                   <div id="InformContent">
+                         天气预报内容
+                   </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
 
     <div class="layui-footer la">
@@ -96,9 +118,28 @@
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 <script>
-    layui.use(['jquery', 'layer'], function(){
-        var $ = layui.$ //重点处
-            ,layer = layui.layer;
+    layui.use(['jquery', 'layer','element'], function (){
+        var element = layui.element;
     });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#date'
+            ,position: 'static'
+            ,change: function(value, date){ //监听日期被切换
+                lay('#testView').html(value);
+            }
+        });
+    });
+    function doFindInf(userId) {
+         $.ajax({
+             type:"post",
+             url:"<%=basePath%>oaSystem/doFindInf.action",
+             data:{"userId":userId},
+             success(data){
+                   console.log(data);
+             }
+         })
+    }
 </script>
 </html>

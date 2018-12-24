@@ -18,7 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// 获取请求的URL
 		String url = request.getRequestURI();
 		// URL:除了登录请求外，其他的URL都进行拦截控制
-		if (url.indexOf("main.jsp")>=0){
+		if (url.indexOf("/oaSystem/updateInf") >=0){
+			return true;
+		}
+		if (url.indexOf("/oaSystem/toClock.action") >=0){
 			return true;
 		}
 		if (url.indexOf("/oaSystem/Login.action")>=0){
@@ -52,7 +55,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-
 	}
 	@Override
 	public void afterCompletion(HttpServletRequest request,

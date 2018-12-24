@@ -15,10 +15,10 @@
     http://www.springframework.org/schema/tx 
     http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"
 >
-    <!--读取db.properties -->
-    <context:property-placeholder location="classpath:db.properties"/>
+	<!--读取db.properties -->
+	<context:property-placeholder location="classpath:db.properties"/>
 
-    <!-- 配置数据源 -->
+	<!-- 配置数据源 -->
     <bean id="dataSource" 
          class="org.apache.commons.dbcp2.BasicDataSource">
          <!--数据库驱动 -->

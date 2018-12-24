@@ -1,8 +1,8 @@
 package com.yrz.oa.core.po;
 
 public class Clock {
-    private String ClockUser;
-    private String ClockCreateTime;
+    private String ClockUser;//打卡人姓名
+    private String ClockCreateTime;//打卡时间
 
     public String getClockUser() {
         return ClockUser;

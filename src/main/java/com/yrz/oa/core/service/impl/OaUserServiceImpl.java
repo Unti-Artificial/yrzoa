@@ -28,11 +28,6 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public int updateInf(OaUser oaUser) {
-		return oaUserDao.updateInf(oaUser);
-	}
-
-	@Override
 	public int doRegister(OaUser oaUser) {
 		return oaUserDao.doRegister(oaUser);
 	}

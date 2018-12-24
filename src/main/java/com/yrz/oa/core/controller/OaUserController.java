@@ -34,6 +34,7 @@ public class OaUserController {
 		String userRole = oaUser.getUserRole();
 		if (oaUser != null && userRole.equals("admin")) {
 			String role = userRole.replace("admin","管理员");
+			session.setAttribute("USER_SESSION",oaUser);
 			model.addAttribute("userId",userId);
 			model.addAttribute("userName", userName);
 			model.addAttribute("userRole",role);
@@ -41,6 +42,7 @@ public class OaUserController {
 		} else if (oaUser != null && userRole.equals("user")) {
 			String role = userRole.replace("user","用户");
 			userRole.replace("user","用户");
+			session.setAttribute("USER_SESSION",oaUser);
 			model.addAttribute("userId",userId);
 			model.addAttribute("userName", userName);
 			model.addAttribute("userRole",role);
@@ -79,13 +81,8 @@ public class OaUserController {
 		OaUser oaUser = oaUserService.doFindIns(userId);
 		return oaUser;
 	}
-
-	/**
-	 *  跳转至主页面
-	 * @return
-	 */
-	@RequestMapping(value = "/toMain.action")
-	public String JumpToMain(){
+	@RequestMapping(value = "Main.action")
+	public String toMain(){
 		return "admin/main";
 	}
 }

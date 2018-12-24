@@ -36,7 +36,7 @@
                     <form action="<%=basePath%>oaSystem/Login.action" id="LoginForm" class="layui-form">
                         <div class="input_outer">
                             <span class="u_user"></span>
-                            <input name="account" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+                            <input name="account" class="text" style="color: #FFFFFF !important" type="text" autocomplete="off" placeholder="请输入账户">
                         </div>
                         <div class="input_outer">
                             <span class="us_uer"></span>
@@ -61,7 +61,6 @@
   layui.use('form',function () {
        var form = layui.form;
        form.on('submit(sub)',function () {
-
        })
   })
 

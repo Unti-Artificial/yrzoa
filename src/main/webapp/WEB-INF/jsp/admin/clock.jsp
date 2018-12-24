@@ -36,11 +36,11 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="">欢迎您,${userName}</a>
+                <a href="">欢迎您,${USER_SESSION.userName}</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">身份:${userRole}</a></dd>
+                    <dd><a href="javascript:;">身份:${USER_SESSION.userRole}</a></dd>
                     <dd><a href="<%=basePath%>oaSystem/doFindInf.action" onclick="doFindInf(${userId})">修改信息</a></dd>
-                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;">权限管理</a></dd>
                     <dd><a href="<%=basePath%>oaSystem/Logout.action">注销登陆</a></dd>
                 </dl>
             </li>
@@ -51,7 +51,10 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item">
+                    <a href="<%=basePath%>oaSystem/Main.action">后台主页</a>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">个人信息管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=basePath%>oaSystem/doFindInf.action">查看个人信息</a></dd>
@@ -62,12 +65,12 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">工作管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">未处理申请</a></dd>
-                        <dd><a href="javascript:;"></a></dd>
-                        <dd><a href="javascript:;"></a></dd>
-                        <dd><a href="javascript:;"></a></dd>
+                        <dd><a href="javascript:;">查看工作日志</a></dd>
+                        <dd><a href="javascript:;">查看当月记事</a></dd>
+                        <dd><a href="javascript:;">填写文档</a></dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item"><a href="">系统管理</a></li>
                 <li class="layui-nav-item"><a href=""></a></li>
             </ul>
         </div>
@@ -78,7 +81,7 @@
         <div class="layui-container">
             <div class="layui-row">
                 <div class="layui-col-md9">
-
+                    今日工作内容
                 </div>
                 <div class="layui-col-md3">
                     <div id="date"></div>
@@ -99,8 +102,21 @@
             </div>
         </div>
 
+        <div class="layui-container">
+            <div class="layui-row">
+                <div class="layui-col-md3">
+                  放假事宜
+                </div>
 
+                <div class="layui-col-md3">
+                  相关工作
+                </div>
 
+                <div class="layui-col-md3">
+                  通讯录
+                </div>
+            </div>
+        </div>
 
     </div>
 

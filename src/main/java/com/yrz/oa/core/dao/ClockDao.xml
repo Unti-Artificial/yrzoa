@@ -8,34 +8,69 @@
       ClockUser,
       ClockCreateTime
       ) values (
-      #{user},
-      #{time}
+      #{ClockUser},
+      #{ClockCreateTime}
       )
     </insert>
-    <!-- 添加打卡次数 -->
-    <insert id="ClockInTime" parameterType="ClockTime">
-      insert  into oa_clock_Time(
+    <!-- 迟到打卡 -->
+    <insert id="ClockOver" parameterType="ClockTime">
+      insert  into oa_clock_over(
       ClockUser,
-      ClockInDegree,
-      ClockInCreateTime
+      ClockOverTime
       ) values (
-      #{username},
-      #{degree},
-      #{intime}
+      #{ClockUser},
+      #{ClockOverTime}
       )
     </insert>
+    <insert id="ClockInTime" parameterType="ClockOverTime">
+      insert into oa_clock_time(
+           ClockUserName,
+           ClockInDegree,
+           ClockInCreateTime
+         ) values (
+           #{ClockUserName},
+           #{ClockInDegree},
+           #{ClockInCreateTime}
+         )
+     </insert>
+    <!--如果迟到，则添加到迟到表里 -->
+    <insert id="ClockOverTime" parameterType="ClockOverTime">
+      insert into oa_clock_overtime(
+           ClockUserName,
+           ClockOverDegree,
+           ClockOverCreateTime
+         ) values (
+           #{ClockUserName},
+           #{ClockOverDegree},
+           #{ClockOverCreateTime}
+         )
+     </insert>
     <!-- 查询是否今日已经打过卡 -->
     <select id="selectDegree" resultType="Integer" parameterType="String">
-        select sum(ClockIndegree)
+        select sum(ClockInDegree)
         from oa_clock_time
-        where ClockInTime = #{present}
-        and ClockUserName = #{username}
+        where ClockInCreateTime = #{present}
+        and ClockUserName = #{userName}
       </select>
+    <!--查询迟到打卡次数 -->
+    <select id="selectOverDegree" resultType="Integer" parameterType="String">
+          select sum(ClockOverDegree)
+          from oa_clock_overtime
+          where ClockOverCreateTime = #{present}
+          and ClockUserName = #{userName}
+    </select>
     <!-- 根据用户名和每月查询当月打卡总数-->
     <select id="selectTotalByNameAndDate" parameterType="String" resultType="Integer">
        select sum(ClockIndegree)
        from oa_clock_time
        where ClockUserName = #{username}
        and ClockInCreateTime >= #{date}
+    </select>
+    <!--根据用户名和每月查询当月迟到打卡总数 -->
+    <select id="selectTotalOverByNameAndDate" parameterType="String" resultType="Integer">
+       select sum(ClockIndegree)
+       from oa_clock_overtime
+       where ClockUserName = #{username}
+       and ClockOverCreateTime >= #{date}
     </select>
 </mapper>

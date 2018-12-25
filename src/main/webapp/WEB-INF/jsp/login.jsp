@@ -32,7 +32,8 @@
                 <canvas id="demo-canvas"></canvas>
                 <div class="logo_box">
                     <h3>欢迎你</h3>
-                    <p style="color: #45BDA6">${msg}</p>
+                    <p style="color: #45BDA6">${error1}</p>
+                    <p style="color: #45BDA6">${error2}</p>
                     <form action="<%=basePath%>oaSystem/Login.action" id="LoginForm" class="layui-form">
                         <div class="input_outer">
                             <span class="u_user"></span>

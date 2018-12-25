@@ -1,10 +1,7 @@
 package com.yrz.oa.core.service.impl;
 
 import com.yrz.oa.core.dao.ClockDao;
-import com.yrz.oa.core.po.Clock;
-import com.yrz.oa.core.po.ClockOver;
-import com.yrz.oa.core.po.ClockOverTime;
-import com.yrz.oa.core.po.ClockTime;
+import com.yrz.oa.core.po.*;
 import com.yrz.oa.core.service.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +34,11 @@ public class ClockServiceImpl implements ClockService {
     }
 
     @Override
+    public int ClockToday(ClockToday clockToday) {
+        return clockDao.ClockToday(clockToday);
+    }
+
+    @Override
     public Integer selectTotalByNameAndDate(String username, String date) {
         return clockDao.selectTotalByNameAndDate(username,date);
     }
@@ -54,6 +56,11 @@ public class ClockServiceImpl implements ClockService {
     @Override
     public Integer selectOverDegree(String present, String userName) {
         return clockDao.selectOverDegree(present,userName);
+    }
+
+    @Override
+    public Integer selectIfOrNotClock(String today) {
+        return clockDao.selectIfOrNotClock(today);
     }
 
 }

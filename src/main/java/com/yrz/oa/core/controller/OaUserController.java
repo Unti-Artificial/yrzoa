@@ -5,6 +5,7 @@ package com.yrz.oa.core.controller;
 import com.yrz.oa.core.po.OaUser;
 import com.yrz.oa.core.service.OaUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,28 +30,26 @@ public class OaUserController {
 	public String login(String account,String password,Model model,
                                                           HttpSession session) {
 		OaUser oaUser = oaUserService.doLogin(account, password);
-		Integer userId = oaUser.getUserId();
-		String userName = oaUser.getUserName();
-		String userRole = oaUser.getUserRole();
-		if (oaUser != null && userRole.equals("admin")) {
-			String role = userRole.replace("admin","管理员");
-			session.setAttribute("USER_SESSION",oaUser);
+
+		if (oaUser != null) {
+			Integer userId = oaUser.getUserId();
+			String userName = oaUser.getUserName();
+			String userRole = oaUser.getUserRole();
+			session.setAttribute("USER_NAME",oaUser.getUserName());
+			session.setAttribute("USER_ROLE",oaUser.getUserRole());
+			session.setAttribute("USER_ID",oaUser.getUserId());
 			model.addAttribute("userId",userId);
 			model.addAttribute("userName", userName);
-			model.addAttribute("userRole",role);
-			return "admin/main";
-		} else if (oaUser != null && userRole.equals("user")) {
-			String role = userRole.replace("user","用户");
-			userRole.replace("user","用户");
-			session.setAttribute("USER_SESSION",oaUser);
-			model.addAttribute("userId",userId);
-			model.addAttribute("userName", userName);
-			model.addAttribute("userRole",role);
-			return "user/main";
-		} else {
-			model.addAttribute("msg", "用户名或密码错误，请重新输入登陆信息");
-			return "login";
+			if (userRole.equals("admin")) {
+				return "admin/main";
+			}
+			if (userRole.equals("user")){
+				return "user/main";
+			}
+			model.addAttribute("error1","出现错误身份，请联系管理员");
 		}
+		model.addAttribute("error2", "账号或密码错误，请重新输入！");
+		return "login";
 	}
 	/**
 	 * 退出登录

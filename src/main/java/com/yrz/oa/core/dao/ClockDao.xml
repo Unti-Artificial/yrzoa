@@ -16,10 +16,10 @@
     <insert id="ClockOver" parameterType="ClockTime">
       insert  into oa_clock_over(
       ClockUser,
-      ClockOverTime
+      ClockOverCreateTime
       ) values (
       #{ClockUser},
-      #{ClockOverTime}
+      #{ClockOverCreateTime}
       )
     </insert>
     <insert id="ClockInTime" parameterType="ClockOverTime">
@@ -59,18 +59,38 @@
           where ClockOverCreateTime = #{present}
           and ClockUserName = #{userName}
     </select>
-    <!-- 根据用户名和每月查询当月打卡总数-->
+    <!-- 根据用户名和每月日期查询当月打卡总数-->
     <select id="selectTotalByNameAndDate" parameterType="String" resultType="Integer">
        select sum(ClockIndegree)
        from oa_clock_time
        where ClockUserName = #{username}
-       and ClockInCreateTime >= #{date}
+       and ClockInCreateTime > #{date}
     </select>
-    <!--根据用户名和每月查询当月迟到打卡总数 -->
+    <!--根据用户名和每月日期查询当月迟到打卡总数 -->
     <select id="selectTotalOverByNameAndDate" parameterType="String" resultType="Integer">
-       select sum(ClockIndegree)
+       select sum(ClockOverDegree)
        from oa_clock_overtime
        where ClockUserName = #{username}
-       and ClockOverCreateTime >= #{date}
+       and ClockOverCreateTime > #{date}
     </select>
+    <!-- 提示当天是否打卡 -->
+     <select id="selectIfOrNotClock" parameterType="String" resultType="Integer">
+      select *
+      from oa_clock_today
+      where todayDegree = 1
+      and  clockCreateTime = #{today}
+     </select>
+    <!--添加至天表 -->
+    <insert id="ClockToday" parameterType="ClockToday">
+      insert into oa_clock_today(
+       clockCreateTime,
+       todayDegree,
+       userName
+      ) values (
+        #{clockCreateTime},
+        #{todayDegree},
+        #{userName}
+      )
+
+    </insert>
 </mapper>

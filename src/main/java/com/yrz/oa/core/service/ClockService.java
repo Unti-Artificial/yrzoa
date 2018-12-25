@@ -1,9 +1,6 @@
 package com.yrz.oa.core.service;
 
-import com.yrz.oa.core.po.Clock;
-import com.yrz.oa.core.po.ClockOver;
-import com.yrz.oa.core.po.ClockOverTime;
-import com.yrz.oa.core.po.ClockTime;
+import com.yrz.oa.core.po.*;
 import org.apache.ibatis.annotations.Param;
 
 public interface ClockService {
@@ -15,6 +12,8 @@ public interface ClockService {
     int ClockInTime(ClockTime clockTime);
     // 添加至迟到表
     int ClockOverTime(ClockOverTime clockOverTime);
+    //添加到每天的考勤表
+    int ClockToday(ClockToday clockToday);
     // 根据用户名和每月查询当月打卡总数
     Integer selectTotalByNameAndDate(String username,String date);
     // 根据用户名和每月查询当月迟到打卡总数
@@ -23,4 +22,6 @@ public interface ClockService {
     Integer selectDegree(String present,String userName);
    //如果当天迟到打卡次数出现重复情况 先通过查询
     Integer selectOverDegree(String present,String userName);
+    //查询员工当天是否迟到
+    Integer selectIfOrNotClock(String today);
 }

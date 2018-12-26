@@ -137,7 +137,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="doUpdate()">立即提交</button>
+                        <button class="layui-btn" onclick="doUpdate()">立即提交</button>
                     </div>
                 </div>
             </form>
@@ -283,7 +283,9 @@
             url:"<%=basePath%>oaSystem/doUpdateInf.action",
             data:$("#updateForm").serialize(),
             success(data) {
+                alert(data);
                 if(data == "success"){
+                    alert("1111");
                     layui.use('layer', function(){
                         var layer = layui.layer;
                         layer.open({

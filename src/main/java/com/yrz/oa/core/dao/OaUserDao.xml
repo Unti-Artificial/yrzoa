@@ -48,14 +48,17 @@
     <update id="updateOwnInf" parameterType="OaUser">
       update oa_user
       <set>
+          <if test="userAccount !=null">
+               userAccount = #{userAccount},
+          </if>
           <if test="userName !=null">
-            userName = #{userName}
+            userName = #{userName},
           </if>
          <if test="userEmail !=null">
-           userEmail = #{userEmail}
+           userEmail = #{userEmail},
          </if>
          <if test="userPhone !=null">
-             userPhone = #{userPhone}
+             userPhone = #{userPhone},
          </if>
       </set>
       where userId = #{userId}

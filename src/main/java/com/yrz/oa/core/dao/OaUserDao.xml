@@ -11,20 +11,21 @@
 	    and userState = '1'
     </select>
     <!-- 用户查看自己的个人信息 -->
-    <select id="doFindIns" parameterType="Integer" resultType="OaUser">
+    <select id="doFindOwnInf" parameterType="Integer" resultType="OaUser">
        select *
        from oa_user
        where
        userId = #{userId}
 	</select>
     <!--用户修改密码 -->
-    <update id="updateInf" parameterType="String">
+    <update id="updatePassword" parameterType="String">
         update oa_user
         <set>
             <if test="userPassword !=null ">
                 userPassword = #{userPassword}
             </if>
         </set>
+        where userId = #{userId}
     </update>
     <!--注册账户 -->
     <insert id="doRegister" parameterType="OaUser">
@@ -44,7 +45,7 @@
        )
     </insert>
     <!--用户修改自己账户的信息 -->
-    <update id="updateBasicInf" parameterType="OaUser">
+    <update id="updateOwnInf" parameterType="OaUser">
       update oa_user
       <set>
           <if test="userName !=null">
@@ -57,5 +58,6 @@
              userPhone = #{userPhone}
          </if>
       </set>
+      where userId = #{userId}
     </update>
 </mapper>

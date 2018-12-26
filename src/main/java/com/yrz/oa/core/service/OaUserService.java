@@ -8,7 +8,8 @@ import com.yrz.oa.core.po.OaUser;
 public interface OaUserService {
 	// 通过账号和密码查询用户
 	public OaUser doLogin(String account, String password);
-	OaUser doFindIns(Integer id);
+	OaUser doFindOwnInf(Integer userId);
 	int doRegister(OaUser oaUser);
-	int updateBasicInf(OaUser oaUser);
+	int updateOwnInf(OaUser oaUser);
+	int updatePassword(String userPassword);
 }

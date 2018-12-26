@@ -13,7 +13,7 @@ public interface ClockService {
     // 添加至迟到表
     int ClockOverTime(ClockOverTime clockOverTime);
     //添加到每天的考勤表
-    int ClockToday(ClockToday clockToday);
+    int ClockInToday(ClockToday clockToday);
     // 根据用户名和每月查询当月打卡总数
     Integer selectTotalByNameAndDate(String username,String date);
     // 根据用户名和每月查询当月迟到打卡总数
@@ -22,6 +22,11 @@ public interface ClockService {
     Integer selectDegree(String present,String userName);
    //如果当天迟到打卡次数出现重复情况 先通过查询
     Integer selectOverDegree(String present,String userName);
-    //查询员工当天是否迟到
-    Integer selectIfOrNotClock(String today);
+    //查询员工当天是否打卡
+    Integer selectIfOrNotClock(String today,String userName);
+    //下班操作
+    int ClockOutToday(ClockToday clockToday);
+    int ClockOutTime(ClockOutTime clockOutTime);
+    int ClockOut(ClockOut clockOut);
+    Integer selectIfOrNotClockOut(String today,String userName);
 }

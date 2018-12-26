@@ -37,11 +37,11 @@
                     <form action="<%=basePath%>oaSystem/Login.action" id="LoginForm" class="layui-form">
                         <div class="input_outer">
                             <span class="u_user"></span>
-                            <input name="account" class="text" style="color: #FFFFFF !important" type="text" autocomplete="off" placeholder="请输入账户">
+                            <input name="account" class="text" style="color: #FFFFFF !important" type="text" autocomplete="off" id="user_account" placeholder="请输入账户">
                         </div>
                         <div class="input_outer">
                             <span class="us_uer"></span>
-                            <input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+                            <input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" id="user_password" type="password" placeholder="请输入密码">
                         </div>
                         <div class="input_outer">
                             <input name="" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="登录" type="submit">
@@ -59,11 +59,6 @@
 <script src="<%=basePath%>login/js/rAF.js"></script>
 <script src="<%=basePath%>login/js/demo-1.js"></script>
 <script type="text/javascript">
-  layui.use('form',function () {
-       var form = layui.form;
-       form.on('submit(sub)',function () {
-       })
-  })
 
 </script>
 </html>

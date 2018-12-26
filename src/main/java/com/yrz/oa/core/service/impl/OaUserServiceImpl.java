@@ -23,8 +23,8 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public OaUser doFindIns(Integer userId) {
-		return oaUserDao.doFindIns(userId);
+	public OaUser doFindOwnInf(Integer userId) {
+		return oaUserDao.doFindOwnInf(userId);
 	}
 
 	@Override
@@ -33,7 +33,12 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public int updateBasicInf(OaUser oaUser) {
-		return oaUserDao.updateBasicInf(oaUser);
+	public int updateOwnInf(OaUser oaUser) {
+		return oaUserDao.updateOwnInf(oaUser);
+	}
+
+	@Override
+	public int updatePassword(String userPassword) {
+		return oaUserDao.updatePassword(userPassword);
 	}
 }

@@ -13,7 +13,7 @@ public interface ClockDao {
     //添加当月迟到打卡次数
     int ClockOverTime(ClockOverTime clockOverTime);
     //添加到每天的考勤表
-     int ClockToday(ClockToday clockToday);
+     int ClockInToday(ClockToday clockToday);
     // 根据用户名和每月查询当月正常打卡总数
     Integer selectTotalByNameAndDate(@Param("username") String username, @Param("date") String date);
     // 根据用户名和每月查询当月迟到打卡总数
@@ -23,5 +23,12 @@ public interface ClockDao {
    //如果当天打卡次数出现重复情况 先通过查询
     Integer selectOverDegree(@Param("present")String present,@Param("userName")String userName);
     //查询员工当天是否打卡
-    Integer selectIfOrNotClock(@Param("today") String today);
+    Integer selectIfOrNotClock(@Param("today") String today,@Param("userName")String userName);
+
+    //下班的操作
+    int ClockOutToday(ClockToday clockToday);
+    int ClockOutTime(ClockOutTime clockOutTime);
+    int ClockOut(ClockOut clockOut);
+    Integer selectIfOrNotClockOut(@Param("today") String today,@Param("userName")String userName);
+
 }

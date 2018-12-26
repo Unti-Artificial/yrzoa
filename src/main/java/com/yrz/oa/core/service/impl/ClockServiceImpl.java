@@ -34,8 +34,8 @@ public class ClockServiceImpl implements ClockService {
     }
 
     @Override
-    public int ClockToday(ClockToday clockToday) {
-        return clockDao.ClockToday(clockToday);
+    public int ClockInToday(ClockToday clockToday) {
+        return clockDao.ClockInToday(clockToday);
     }
 
     @Override
@@ -59,8 +59,28 @@ public class ClockServiceImpl implements ClockService {
     }
 
     @Override
-    public Integer selectIfOrNotClock(String today) {
-        return clockDao.selectIfOrNotClock(today);
+    public Integer selectIfOrNotClock(String today,String userName) {
+        return clockDao.selectIfOrNotClock(today,userName);
+    }
+
+    @Override
+    public int ClockOutToday(ClockToday clockToday) {
+        return clockDao.ClockOutToday(clockToday);
+    }
+
+    @Override
+    public int ClockOutTime(ClockOutTime clockOutTime) {
+        return clockDao.ClockOutTime(clockOutTime);
+    }
+
+    @Override
+    public int ClockOut(ClockOut clockOut) {
+        return clockDao.ClockOut(clockOut);
+    }
+
+    @Override
+    public Integer selectIfOrNotClockOut(String today, String userName) {
+        return clockDao.selectIfOrNotClockOut(today, userName);
     }
 
 }

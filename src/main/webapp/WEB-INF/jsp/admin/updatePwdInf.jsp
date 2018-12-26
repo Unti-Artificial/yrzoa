@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>修改密码</title>
     <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
     <style type="text/css">
     </style>
@@ -25,10 +25,8 @@
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">账户信息管理</a></li>
-            <li class="layui-nav-item"><a href="" onclick="fingCalendar()">查看日历</a></li>
-            <li class="layui-nav-item"><a href="">公告查看</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" onclick="doClock('${userName}')">打卡</a>
+            <li class="layui-nav-item"><a href="javascript:;">公告查看</a></li>
+            <li class="layui-nav-item"><a href="javascript:;">打卡</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="doClock('${userName}')">上班打卡</a></dd>
                     <dd><a href="javascript:;" onclick="doClockOut('${userName}')">下班打卡</a></dd>
@@ -51,7 +49,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
@@ -96,7 +94,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                   <a href="javascript:;">审批管理</a>
+                    <a href="javascript:;">审批管理</a>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;">系统管理</a></li>
 
@@ -105,79 +103,34 @@
     </div>
     <div class="layui-body">
         <!-- 内容主体区域 -->
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>个人信息汇总</legend>
+        </fieldset>
         <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md9">
-                    <div class="layui-card">
-                        <div class="layui-card-header">工作内容</div>
-                        <div class="layui-card-body">
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                        </div>
+            <form action="" class="layui-form" lay-filter="form1" id="passwordForm">
+                <div class="layui-form-item" style="margin-top: 30px">
+                    <label class="layui-form-label">原密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userAccount" id="update_account" value="${oldPassword}" autocomplete="off"
+                               class="layui-input">
                     </div>
                 </div>
-                <div class="layui-col-md3">
-                    <div id="calendarTable"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                     <h2>今日天气预报</h2>
-                </div>
-                <div class="layui-col-md9">
-                   <div id="InformContent">
-                         天气预报内容
-                   </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            放假事宜
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
+                <div class="layui-form-item"  style="margin-top: 30px">
+                    <label class="layui-form-label">新密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="userPassword" id="newPassword" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通告
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
+                <div class="layui-form-item"  style="margin-top: 30px">
+                    <label class="layui-form-label">请再重复一次</label>
+                    <div class="layui-input-block">
+                        <input type="password" id="repeatPassword" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通讯录
-                        </div>
-                        <div class="layui-card-body">
-                            内容
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
+
     <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
@@ -190,69 +143,60 @@
     layui.use(['jquery', 'layer','element'], function (){
         var element = layui.element;
     });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#calendarTable'
-            ,position: 'static'
-            ,format: '北京时间:yyyy年MM月dd日'
-            ,calendar: true
-            ,showBottom: false
-            ,change: function(value, date){ //监听日期被切换
-                lay('#testView').html(value);
-            }
-        });
-    });
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render(null, 'form1');
+    })
     function doClockOut(userName) {
-         $.ajax({
-             type: "post",
-             url:"<%=basePath%>oaSystem/clockOut.action",
-             data:{"userName" : userName},
-             success(data){
-                 if(data =="success"){
-                     layui.use('layer', function () {
-                         var layer = layui.layer;
-                         layer.open({
-                             title: "打卡信息",
-                             content: "下班打卡成功,出行请注意安全",
-                         });
-                     });
-                 }else if (data == "failure"){
-                       layui.use('layer',function () {
-                           var layer = layui.layer;
-                           layer.open({
-                               title:"打卡信息",
-                               content:"打开失败,请联系管理员"
-                           })
-                       })
-                 }else if (data == "out clocked"){
-                     layui.use('layer',function () {
-                         var layer = layui.layer;
-                         layer.open({
-                             title:"打卡信息",
-                             content:"已经打过卡"
-                         })
-                     })
-                 }else if (data == "unknown error"){
-                     layui.use('layer',function () {
-                         var layer = layui.layer;
-                         layer.open({
-                             title:"打卡信息",
-                             content:"出现未知错误，请联系管理员"
-                         })
-                     })
-                 }else if (data == "time error"){
-                     layui.use('layer',function () {
-                         var layer = layui.layer;
-                         layer.open({
-                             title:"打卡信息",
-                             content:"未到规定时间，请17：30来打卡"
-                         })
-                     })
-                 }
-             }
+        $.ajax({
+            type: "post",
+            url:"<%=basePath%>oaSystem/clockOut.action",
+            data:{"userName" : userName},
+            success(data){
+                if(data =="success"){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title: "打卡信息",
+                            content: "下班打卡成功,出行请注意安全",
+                        });
+                    });
+                }else if (data == "failure"){
+                    layui.use('layer',function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title:"打卡信息",
+                            content:"打开失败,请联系管理员"
+                        })
+                    })
+                }else if (data == "out clocked"){
+                    layui.use('layer',function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title:"打卡信息",
+                            content:"已经打过卡"
+                        })
+                    })
+                }else if (data == "unknown error"){
+                    layui.use('layer',function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title:"打卡信息",
+                            content:"出现未知错误，请联系管理员"
+                        })
+                    })
+                }else if (data == "time error"){
+                    layui.use('layer',function () {
+                        var layer = layui.layer;
+                        layer.open({
+                            title:"打卡信息",
+                            content:"未到规定时间，请17：30来打卡"
+                        })
+                    })
+                }
+            }
 
-         })
+        })
     }
     function doClock(userName) {
         $.ajax({
@@ -317,6 +261,19 @@
                         });
                     });
                 }
+            }
+        })
+    }
+    function doUpdate(){
+        $.ajax({
+            type:"post",
+            url:"<%=basePath%>oaSystem/updateInf.action",
+            data:$("#updateForm").serialize(),
+            success(data) {
+                $("#update_email").val(data.userEmail);
+                $("#update_phone").val(data.userPhone);
+                $("#update_account").val(data.userAccount);
+                $("#update_name").val(data.userName);
             }
         })
     }

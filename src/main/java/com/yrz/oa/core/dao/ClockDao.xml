@@ -22,6 +22,7 @@
       #{ClockOverCreateTime}
       )
     </insert>
+    <!--正常打卡 -->
     <insert id="ClockInTime" parameterType="ClockOverTime">
       insert into oa_clock_time(
            ClockUserName,
@@ -74,23 +75,71 @@
        and ClockOverCreateTime > #{date}
     </select>
     <!-- 提示当天是否打卡 -->
-     <select id="selectIfOrNotClock" parameterType="String" resultType="Integer">
-      select *
+    <select id="selectIfOrNotClock" parameterType="String" resultType="Integer">
+      select count(*)
       from oa_clock_today
       where todayDegree = 1
       and  clockCreateTime = #{today}
+      and  userName = #{userName}
+      and  clockComment = '上班'
      </select>
     <!--添加至天表 -->
-    <insert id="ClockToday" parameterType="ClockToday">
+    <insert id="ClockInToday" parameterType="ClockToday">
       insert into oa_clock_today(
        clockCreateTime,
        todayDegree,
-       userName
+       userName,
+       clockComment
       ) values (
         #{clockCreateTime},
         #{todayDegree},
-        #{userName}
+        #{userName},
+        '上班'
       )
-
     </insert>
+    <!--下班打卡 -->
+    <insert id="ClockOut" parameterType="ClockOut">
+          insert into oa_clock_out(
+          ClockOutCreateTime,
+          ClockUser
+          )values (
+          #{ClockOutCreateTime},
+          #{ClockUser}
+          )
+    </insert>
+    <!--添加至下班表 -->
+    <insert id="ClockOutTime" parameterType="ClockOutTime">
+      insert into oa_clock_outtime(
+           ClockUserName,
+           ClockOutDegree,
+           ClockOutCreateTime
+         ) values (
+           #{ClockUserName},
+           #{ClockOutDegree},
+           #{ClockOutCreateTime}
+         )
+     </insert>
+    <!--添加至天表 -->
+    <insert id="ClockOutToday" parameterType="ClockToday">
+      insert into oa_clock_today(
+       clockCreateTime,
+       todayDegree,
+       userName,
+       clockComment
+      ) values (
+        #{clockCreateTime},
+        #{todayDegree},
+        #{userName},
+        '下班'
+      )
+    </insert>
+    <!--查询当天下班是否打卡 -->
+    <select id="selectIfOrNotClockOut" parameterType="String" resultType="Integer">
+      select count(*)
+      from oa_clock_today
+      where todayDegree = 1
+      and  clockCreateTime = #{today}
+      and  userName = #{userName}
+      and  clockComment = '下班'
+     </select>
 </mapper>

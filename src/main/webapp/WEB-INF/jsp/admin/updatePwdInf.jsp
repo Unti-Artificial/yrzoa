@@ -107,11 +107,12 @@
             <legend>个人信息汇总</legend>
         </fieldset>
         <div class="layui-container">
-            <form action="" class="layui-form" lay-filter="form1" id="passwordForm">
+            <form action="" class="layui-form" lay-filter="" id="passwordForm">
+                <input type="hidden" name="userName" value="${userName}">
                 <div class="layui-form-item" style="margin-top: 30px">
                     <label class="layui-form-label">原密码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="userAccount" id="update_account" value="${oldPassword}" autocomplete="off"
+                        <input type="text" name="" id="update_account" value="${oldPassword}" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -127,6 +128,11 @@
                         <input type="password" id="repeatPassword" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" onclick="doUpdatePwd()">立即提交</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -140,13 +146,11 @@
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 <script>
+
+
     layui.use(['jquery', 'layer','element'], function (){
         var element = layui.element;
     });
-    layui.use('form', function () {
-        var form = layui.form;
-        form.render(null, 'form1');
-    })
     function doClockOut(userName) {
         $.ajax({
             type: "post",
@@ -264,18 +268,38 @@
             }
         })
     }
-    function doUpdate(){
-        $.ajax({
-            type:"post",
-            url:"<%=basePath%>oaSystem/updateInf.action",
-            data:$("#updateForm").serialize(),
-            success(data) {
-                $("#update_email").val(data.userEmail);
-                $("#update_phone").val(data.userPhone);
-                $("#update_account").val(data.userAccount);
-                $("#update_name").val(data.userName);
-            }
-        })
+    function doUpdatePwd(userName,oldPassword){
+        var newPassword = document.getElementById("newPassword").value;
+        var repeatPassword = document.getElementById("repeatPassword").value;
+        if (newPassword == repeatPassword) {
+            $.ajax({
+                type: "post",
+                url: "",
+                data: $("#passwordForm").serialize(),
+                success(data) {
+                    if (data == "success") {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.open({
+                                title: "提示信息",
+                                content: "更改密码成功"
+                            })
+                        })
+                    } else if (data == "failure") {
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.open({
+                                title: "提示信息",
+                                content: "更改密码失败"
+                            })
+                        })
+                    }
+                }
+            })
+        }
+        else if (newPassword != repeatPassword) {
+              alert("两次密码输入不一致");
+        }
     }
 </script>
 </html>

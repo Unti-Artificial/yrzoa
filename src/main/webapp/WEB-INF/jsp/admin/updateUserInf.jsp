@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>更改用户信息界面</title>
     <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
     <style type="text/css">
     </style>
@@ -156,10 +156,6 @@
     layui.use(['jquery', 'layer','element'], function (){
         var element = layui.element;
     });
-    layui.use('form', function () {
-        var form = layui.form;
-        form.render(null, 'form1');
-    })
     function doClockOut(userName) {
         $.ajax({
             type: "post",
@@ -283,25 +279,10 @@
             url:"<%=basePath%>oaSystem/doUpdateInf.action",
             data:$("#updateForm").serialize(),
             success(data) {
-                alert(data);
                 if(data == "success"){
-                    alert("1111");
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.open({
-                            title:"更新信息",
-                            content:"用户更新成功"
-                        })
-                    });
-                }
-                if (data =="failure"){
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.open({
-                            title:"更新信息",
-                            content:"用户更新失败"
-                        })
-                    });
+                    alert("更改成功");
+                }else if (data =="failure"){
+                    alert("更改失败");
                 }
             }
         })

@@ -11,5 +11,5 @@ public interface OaUserService {
 	OaUser doFindOwnInf(Integer userId);
 	int doRegister(OaUser oaUser);
 	int updateOwnInf(OaUser oaUser);
-	int updatePassword(String userPassword);
+	int updatePassword(String userPassword,String userName);
 }

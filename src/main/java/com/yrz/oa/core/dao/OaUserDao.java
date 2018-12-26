@@ -8,7 +8,7 @@ public interface OaUserDao {
                             @Param("password") String password
      );
      OaUser doFindOwnInf(Integer userId);
-     int updatePassword(@Param("userPassword") String userPassword);
+     int updatePassword(@Param("userPassword") String userPassword,@Param("userName")String userName);
      int doRegister(OaUser oaUser);
      int updateOwnInf(OaUser oaUser);
 }

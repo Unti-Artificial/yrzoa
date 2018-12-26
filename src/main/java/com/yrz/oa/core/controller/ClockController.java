@@ -57,8 +57,6 @@ public class ClockController {
         SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
         date1 = f.parse(f.format(new Date()));
         date2 = f.parse(d.format(new Date()) + " " + "08:00:00");//设置当天最迟打卡时间
-        System.out.println(date1);
-        System.out.println(date2);
         if (date1.getTime() < date2.getTime()) {
             if (todayDegree == null || todayDegree == 0) {
                 //  table clock

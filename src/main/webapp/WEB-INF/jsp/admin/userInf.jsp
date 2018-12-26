@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>用户信息界面</title>
     <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
     <style type="text/css">
     </style>

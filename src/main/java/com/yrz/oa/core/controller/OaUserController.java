@@ -131,11 +131,21 @@ public class OaUserController {
 	}
    //用户修改密码
 	@RequestMapping(value = "doEditPwd.action")
-	public String doUpdatePwd(Integer userId,Model model){
+	public String doEditPwd(Integer userId,Model model){
 		OaUser oaUser = oaUserService.doFindOwnInf(userId);
 		model.addAttribute("oldPassword",oaUser.getUserPassword());
 		model.addAttribute("userName",oaUser.getUserName());
 		model.addAttribute("userId",oaUser.getUserId());
 		return "admin/updatePwdInf";
 	}
-}
+	@RequestMapping(value = "doUpdatePwd.action")
+	@ResponseBody
+	public String doUpdatePwd(String userPassword,String userName) {
+		int row = oaUserService.updatePassword(userPassword, userName);
+		if (row > 0) {
+			return "success";
+		} else {
+			return "failure";
+		}
+	}
+	}

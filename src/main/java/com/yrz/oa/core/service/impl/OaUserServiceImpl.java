@@ -38,7 +38,7 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public int updatePassword(String userPassword) {
-		return oaUserDao.updatePassword(userPassword);
+	public int updatePassword(String userPassword,String userName) {
+		return oaUserDao.updatePassword(userPassword,userName);
 	}
 }

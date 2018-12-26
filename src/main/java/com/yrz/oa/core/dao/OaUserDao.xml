@@ -25,7 +25,7 @@
                 userPassword = #{userPassword}
             </if>
         </set>
-        where userId = #{userId}
+        where userName = #{userName}
     </update>
     <!--注册账户 -->
     <insert id="doRegister" parameterType="OaUser">

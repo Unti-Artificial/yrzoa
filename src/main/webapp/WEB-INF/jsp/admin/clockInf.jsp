@@ -100,9 +100,7 @@
     </div>
 
     <div class="layui-body">
-        <div class="layui-col-md4">
 
-        </div>
 
     </div>
 

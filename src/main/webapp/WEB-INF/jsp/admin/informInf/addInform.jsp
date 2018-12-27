@@ -15,9 +15,11 @@
 <html>
 <head>
     <title>添加公告界面</title>
+    <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
+    <!--头部导航栏 -->
     <div class="layui-header">
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -44,7 +46,7 @@
             </li>
         </ul>
     </div>
-
+    <!--左侧边栏 -->
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
@@ -96,9 +98,12 @@
             </ul>
         </div>
     </div>
+</div>
 <div class="layui-footer la">
     <!-- 底部固定区域 -->
     © 易融租网络科技有限公司 2018-2019
 </div>
+<script src="<%=basePath%>layui/layui.js"></script>
+<script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 </body>
 </html>

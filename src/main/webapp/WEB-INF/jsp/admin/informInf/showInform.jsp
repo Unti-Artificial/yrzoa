@@ -101,7 +101,19 @@
         </div>
     </div>
     <div class="layui-body">
-        <!-- 内容主体区域 -->
+        <!--  轮播图区域  -->
+        <div class="layui-container">
+      <div class="layui-carousel" id="carousel1">
+          <div carousel-item>
+              <div><img src="<%=basePath%>images/carousel1.jpg"></div>
+              <div><img src="<%=basePath%>images/carousel2.jpg"></div>
+              <div><img src="<%=basePath%>images/carousel3.jpg"></div>
+              <div><img src="<%=basePath%>images/carousel4.jpg"></div>
+              <div><img src="<%=basePath%>images/carousel5.jpg"></div>
+          </div>
+      </div>
+        </div>
+        <!-- 表格主题区域 -->
         <div class="layui-container">
             <table class="layui-table">
                 <colgroup>
@@ -128,17 +140,45 @@
                         <td>${list.informContent}</td>
                         <td>${list.informCreateTime}</td>
                         <td>
-                            <a href="<%=basePath%>oaSystem/addInform.action" class="layui-btn layui-btn-xs">添加公告</a>
+                            <button type="button" onclick="doFindInformContent(${list.informId})" class="layui-btn layui-btn-sm">查看公告内容</button>
+                            <button type="button" onclick="doFindInform(${list.informId})" class="layui-btn layui-btn-sm">更改公告</button>
+                            <button type="button" onclick="doDeleteInform(${list.informId})" class="layui-btn layui-btn-sm">删除公告</button>
                         </td>
                     </tr>
-                </c:forEach>
                 </tbody>
+                </c:forEach>
             </table>
         </div>
-
-
     </div>
+     <div class="layui-row" id="informInf" style="display: none">
+         <div class="layui-col-md11">
+             <c:forEach items="${informList}" var="form">
+             <form class="layui-form" id="updateInform">
+                 <input type="hidden" name="informId" value="${form.informId}">
 
+                 <div class="layui-form-item">
+                     <label class="layui-form-label">通知标题</label>
+                     <div class="layui-input-inline">
+                         <input type="text" name="informTitle" value="${form.informTitle}" class="layui-input">
+                     </div>
+                 </div>
+                 <div class="layui-form-item">
+                     <label class="layui-form-label">发布人</label>
+                     <div class="layui-input-inline">
+                         <input type="text" name="informUserName" value="${form.informUserName}"  class="layui-input">
+                     </div>
+                 </div>
+                 <div class="layui-form-item">
+                      <label></label>
+                     <div class="layui-input-inline">
+                         <input type="time" name="informUserName" value="${form.informUserName}"  class="layui-input">
+                     </div>
+                 </div>
+             </form>
+             </c:forEach>
+         </div>
+
+     </div>
     <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
@@ -148,23 +188,16 @@
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 <script>
-    layui.use(['jquery', 'layer', 'element'], function () {
+    layui.use(['jquery', 'layer', 'element','carousel'], function () {
         var element = layui.element;
-    });
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#calendarTable'
-            , position: 'static'
-            , format: '北京时间:yyyy年MM月dd日'
-            , calendar: true
-            , showBottom: false
-            , change: function (value, date) { //监听日期被切换
-                lay('#testView').html(value);
-            }
+        var carousel = layui.carousel;
+        carousel.render({
+            elem: '#carousel1'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
         });
     });
-
     function doClockOut(userName) {
         $.ajax({
             type: "post",
@@ -242,7 +275,8 @@
                             , offset: ['200px', '500px']
                         });
                     });
-                } else if (data == "success") {
+                }
+                else if (data == "success") {
                     layui.use('layer', function () {
                         var layer = layui.layer;
                         layer.open({
@@ -307,7 +341,41 @@
         })
     }
 
-    function doFindInform() {
+    //查看公告
+    function doFindInform(informId) {
+         $.ajax({
+             type:"post",
+             url:"<%=basePath%>oaSystem/doFindInform.action",
+             data:{"informId":informId},
+             success(data){
+                 layui.use(['layer','jquery'],function () {
+                     var $ = layui.$
+                         ,layer = layui.layer;
+                     layer.open({
+                         type:1,
+                         title:"通知信息",
+                         area: ['50%','50%'],
+                         content:$("#informInf").html()
+                     })
+                 })
+             }
+
+         })
+    }
+    //删除公告
+    function doDeleteInform(informId) {
+
+    }
+    //修改公告
+    function doUpdate() {
+
+    }
+    //添加公告
+    function doAddInform(informId) {
+
+    }
+    //查看公告内容
+    function doFindInformContent(informId) {
 
     }
 </script>

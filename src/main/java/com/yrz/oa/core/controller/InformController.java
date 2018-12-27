@@ -53,11 +53,18 @@ public class InformController {
         }
     }
 
+    @RequestMapping(value = "doFindInform.action")
+    @ResponseBody
+    public Inform getInformById(Integer InformId){
+        Inform inform = informService.getInformById(InformId);
+        return inform;
+    }
+
     /**
      *
      * @param userId
      * @param model
-     * @description 发布通知
+     * @description 公告List
      */
     @RequestMapping(value = "showInform.action")
     public String toShowInform(Integer userId, Model model){

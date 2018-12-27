@@ -4,16 +4,14 @@ package com.yrz.oa.core.controller;
 
 import com.yrz.oa.core.po.OaUser;
 import com.yrz.oa.core.service.OaUserService;
-import javafx.scene.chart.ValueAxis;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 用户控制器类
@@ -89,7 +87,7 @@ public class OaUserController {
 		  model.addAttribute("userEmail",oaUser.getUserEmail());
 		  model.addAttribute("userPhone",oaUser.getUserPhone());
 		  model.addAttribute("userName",oaUser.getUserName());
-		  return "admin/userInf";
+		  return "admin/userInf/userInf";
 	}
 	//用户修改自己的账户信息
 
@@ -108,7 +106,7 @@ public class OaUserController {
 		model.addAttribute("updateEmail",oaUser.getUserEmail());
 		model.addAttribute("updatePhone",oaUser.getUserPhone());
 		model.addAttribute("updateName",oaUser.getUserName());
-		return "admin/updateUserInf";
+		return "admin/userInf/updateUserInf";
 		}
 
 	/**
@@ -133,19 +131,27 @@ public class OaUserController {
 	@RequestMapping(value = "doEditPwd.action")
 	public String doEditPwd(Integer userId,Model model){
 		OaUser oaUser = oaUserService.doFindOwnInf(userId);
-		model.addAttribute("oldPassword",oaUser.getUserPassword());
-		model.addAttribute("userName",oaUser.getUserName());
-		model.addAttribute("userId",oaUser.getUserId());
-		return "admin/updatePwdInf";
+		if (null!=oaUser) {
+			model.addAttribute("oldPassword", oaUser.getUserPassword());
+			model.addAttribute("userName", oaUser.getUserName());
+			model.addAttribute("userId", oaUser.getUserId());
+		}
+		return "admin/userInf/updatePwdInf";
 	}
 	@RequestMapping(value = "doUpdatePwd.action")
 	@ResponseBody
-	public String doUpdatePwd(String userPassword,String userName) {
-		int row = oaUserService.updatePassword(userPassword, userName);
-		if (row > 0) {
-			return "success";
+	public OaUser doUpdatePwd(OaUser oaUser) {
+		int row  = oaUserService.updatePassword(oaUser);
+		if (row >0) {
+			return oaUser;
 		} else {
-			return "failure";
+			return null;
 		}
+	}
+	@RequestMapping(value = "doFindAllUser")
+	@ResponseBody
+	public List<OaUser> selectAllUser(){
+       List<OaUser> oaUsers = oaUserService.selectAllUser();
+         return oaUsers;
 	}
 	}

@@ -3,29 +3,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yrz.oa.core.dao.InformDao">
     <!-- 发布通知 -->
-    <insert id="publishInform" parameterType="Inform">
+    <insert id="addInform" parameterType="Inform">
       insert  into oa_inform(
-      informContent,
+      informUserName,
       informCreateTime,
-      informPublisher
-
+      informTitle,
+      informContent
       ) values (
-     #{content},
-     #{time},
-     #{publisher}
+     #{informUserName},
+     #{informCreateTime},
+     #{informTitle},
+     #{informContent}
       )
     </insert>
-    <!-- 获取通知内容-->
-    <select id="getInformContent" parameterType="Integer">
-       select  * from  where informId = #{id}
-    </select>
     <!--修改通知 -->
-    <update id="updateInform" parameterType="String">
-        update oa_publish
+    <update id="updateInform" parameterType="Inform">
+        update oa_inform
         <set>
+            <if test="informUserName !=null">
+                informUserName = #{informUserName},
+            </if>
+            <if test="informCreateTime !=null">
+                informCreateTime = #{informCreateTime},
+            </if>
+            <if test="informTitle !=null">
+                informTitle = #{informTitle},
+            </if>
             <if test="informContent !=null">
-                informContent = #{content}
+                informContent = #{informContent}
             </if>
         </set>
+        where informId = #{infomID}
     </update>
+    <!--获取所有公告内容-->
+    <select id="getAllInform" resultType="Inform">
+       select * from oa_inform
+    </select>
+    <!--根据Id 获取内容 -->
+    <select id="getInformById" parameterType="Integer" resultType="Inform">
+      select * from oa_inform where InformId = #{InformId}
+    </select>
 </mapper>

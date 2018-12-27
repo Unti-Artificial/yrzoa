@@ -178,12 +178,15 @@ public class ClockController {
     }
 
     /**
-     * @param username
+     *
+     * @param userId
+     * @param model
      * @param date
      * @return
      */
-    @RequestMapping(value = "/doFindClockInf")
-    public String doFindClockInf(String username, String date, Model model) {
+    @RequestMapping("clockOwnInf.action")
+    public String ClockOwnInf(Integer userId,Model model,String date){
+        // start   before the month
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date today = new Date();
         String endDate = sdf.format(today);//当前日期
@@ -192,12 +195,29 @@ public class ClockController {
         theCa.add(theCa.DATE, -30);
         Date start = theCa.getTime();
         date = sdf.format(start);
-        System.out.println(date);
-        Integer normalTime = clockService.selectTotalByNameAndDate(username, date);
-        Integer lateTime = clockService.selectTotalOverByNameAndDate(username, date);
-        Integer monthTime = normalTime + lateTime;
-        model.addAttribute("normalTime", normalTime);
-        model.addAttribute("lateTime", lateTime);
-        return "admin/clockInf";
+        // end
+        OaUser oaUser = oaUserService.doFindOwnInf(userId);
+        model.addAttribute("userName",oaUser.getUserName());
+        model.addAttribute("userId",oaUser.getUserId());
+        Integer normalClockTime = clockService.selectTotalByNameAndDate(oaUser.getUserName(),date);//上个月正常打卡次数
+        Integer overClockTime = clockService.selectTotalOverByNameAndDate(oaUser.getUserName(),date);//上个月一共打卡的次数
+        if (overClockTime == null){
+            overClockTime = 0 ;
+        }
+        if (normalClockTime == null){
+            normalClockTime = 0;
+        }
+        Integer altogetherTime = normalClockTime + overClockTime;
+        model.addAttribute("normalClockTime",normalClockTime);
+        model.addAttribute("overClockTime",overClockTime);
+        model.addAttribute("altogetherTime",altogetherTime);
+        model.addAttribute("startDate",date);
+        model.addAttribute("endDate",endDate);
+        return "admin/clockInf/clockOwnInf";
+    }
+    @RequestMapping(value = "clockInf.action")
+    public String clockInf(){
+
+        return "";
     }
 }

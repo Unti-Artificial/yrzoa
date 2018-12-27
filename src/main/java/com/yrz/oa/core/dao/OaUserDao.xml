@@ -18,7 +18,7 @@
        userId = #{userId}
 	</select>
     <!--用户修改密码 -->
-    <update id="updatePassword" parameterType="String">
+    <update id="updatePassword" parameterType="OaUser">
         update oa_user
         <set>
             <if test="userPassword !=null ">
@@ -26,6 +26,7 @@
             </if>
         </set>
         where userName = #{userName}
+        and userId = #{userId}
     </update>
     <!--注册账户 -->
     <insert id="doRegister" parameterType="OaUser">
@@ -46,21 +47,25 @@
     </insert>
     <!--用户修改自己账户的信息 -->
     <update id="updateOwnInf" parameterType="OaUser">
-      update oa_user
-      <set>
-          <if test="userAccount !=null">
-               userAccount = #{userAccount},
-          </if>
-          <if test="userName !=null">
-            userName = #{userName},
-          </if>
-         <if test="userEmail !=null">
-           userEmail = #{userEmail},
-         </if>
-         <if test="userPhone !=null">
-             userPhone = #{userPhone},
-         </if>
-      </set>
-      where userId = #{userId}
+        update oa_user
+        <set>
+            <if test="userAccount !=null">
+                userAccount = #{userAccount},
+            </if>
+            <if test="userName !=null">
+                userName = #{userName},
+            </if>
+            <if test="userEmail !=null">
+                userEmail = #{userEmail},
+            </if>
+            <if test="userPhone !=null">
+                userPhone = #{userPhone},
+            </if>
+        </set>
+        where userId = #{userId}
     </update>
+    <select id="selectAllUser" resultType="OaUser">
+        select *
+        from oa_user
+    </select>
 </mapper>

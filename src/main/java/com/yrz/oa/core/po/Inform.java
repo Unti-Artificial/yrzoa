@@ -3,8 +3,17 @@ package com.yrz.oa.core.po;
 public class Inform {
     private Integer informId;
     private String informContent;
-    private String informPublisher;
+    private String informUserName;
     private String informCreateTime;
+    private String informTitle;
+
+    public String getInformTitle() {
+        return informTitle;
+    }
+
+    public void setInformTitle(String informTitle) {
+        this.informTitle = informTitle;
+    }
 
     public Integer getInformId() {
         return informId;
@@ -22,12 +31,12 @@ public class Inform {
         this.informContent = informContent;
     }
 
-    public String getInformPublisher() {
-        return informPublisher;
+    public String getInformUserName() {
+        return informUserName;
     }
 
-    public void setInformPublisher(String informPublisher) {
-        this.informPublisher = informPublisher;
+    public void setInformUserName(String informUserName) {
+        this.informUserName = informUserName;
     }
 
     public String getInformCreateTime() {

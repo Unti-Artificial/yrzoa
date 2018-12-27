@@ -142,4 +142,9 @@
       and  userName = #{userName}
       and  clockComment = '下班'
      </select>
+    <!-- start  all information about clock -->
+   <!-- normal  -->
+    <select id="clockInfOne" resultType="ClockTime">
+     select * from
+    </select>
 </mapper>

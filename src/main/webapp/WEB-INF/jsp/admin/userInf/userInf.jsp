@@ -14,7 +14,7 @@
 %>
 <html>
 <head>
-    <title>系统主界面</title>
+    <title>用户信息界面</title>
     <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
     <style type="text/css">
     </style>
@@ -26,9 +26,8 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">账户信息管理</a></li>
-            <li class="layui-nav-item"><a href="" onclick="fingCalendar()">查看日历</a></li>
-            <li class="layui-nav-item"><a href="">公告查看</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" onclick="doClock('${userName}')">打卡</a>
+            <li class="layui-nav-item"><a href="javascript:;">公告查看</a></li>
+            <li class="layui-nav-item"><a href="javascript:;">打卡</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="doClock('${userName}')">上班打卡</a></dd>
                     <dd><a href="javascript:;" onclick="doClockOut('${userName}')">下班打卡</a></dd>
@@ -51,7 +50,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
@@ -92,7 +91,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                   <a href="javascript:;">审批管理</a>
+                    <a href="javascript:;">审批管理</a>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;">系统管理</a></li>
 
@@ -101,79 +100,41 @@
     </div>
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md9">
-                    <div class="layui-card">
-                        <div class="layui-card-header">工作内容</div>
-                        <div class="layui-card-body">
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md3">
-                    <div id="calendarTable"></div>
-                </div>
-            </div>
-        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>个人信息汇总</legend>
+        </fieldset>
 
         <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                     <h2>今日天气预报</h2>
-                </div>
-                <div class="layui-col-md9">
-                   <div id="InformContent">
-                         天气预报内容
-                   </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            放假事宜
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
+            <form action="" class="layui-form" lay-filter="form1" id="updateForm">
+                <div class="layui-form-item" style="margin-top: 30px">
+                    <label class="layui-form-label">账户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userAccount" id="update_account" value="${userAccount}" autocomplete="off"
+                               class="layui-input" readonly="readonly">
                     </div>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通告
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
+                <div class="layui-form-item"  style="margin-top: 30px">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userName" id="update_name" value="${userName}" autocomplete="off" class="layui-input" readonly="readonly">
                     </div>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通讯录
-                        </div>
-                        <div class="layui-card-body">
-                            内容
-                        </div>
+                <div class="layui-form-item"  style="margin-top: 30px">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userEmail" id="update_email" value="${userEmail}" autocomplete="off" class="layui-input" readonly="readonly">
                     </div>
                 </div>
-            </div>
+                <div class="layui-form-item"  style="margin-top: 30px">
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userPhone" id="update_phone" value="${userPhone}" autocomplete="off" class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+
     <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
@@ -186,19 +147,17 @@
     layui.use(['jquery', 'layer','element'], function (){
         var element = layui.element;
     });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#calendarTable'
-            ,position: 'static'
-            ,format: '北京时间:yyyy年MM月dd日'
-            ,calendar: true
-            ,showBottom: false
-            ,change: function(value, date){ //监听日期被切换
-                lay('#testView').html(value);
-            }
-        });
-    });
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render(null, 'form1');
+    })
+    layui.use('layer',function () {
+          var layer = layui.layer;
+          layer.open({
+              title:"友情提示",
+              content:"当前页面只能用于查看信息"
+          })
+    })
     function doClockOut(userName) {
         $.ajax({
             type: "post",

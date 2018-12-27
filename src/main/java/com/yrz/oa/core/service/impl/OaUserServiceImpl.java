@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 用户Service接口实现类
  */
@@ -38,7 +40,13 @@ public class OaUserServiceImpl implements OaUserService {
 	}
 
 	@Override
-	public int updatePassword(String userPassword,String userName) {
-		return oaUserDao.updatePassword(userPassword,userName);
+	public int updatePassword(OaUser oaUser) {
+		return oaUserDao.updatePassword(oaUser);
 	}
+
+	@Override
+	public List<OaUser> selectAllUser() {
+		return oaUserDao.selectAllUser();
+	}
+
 }

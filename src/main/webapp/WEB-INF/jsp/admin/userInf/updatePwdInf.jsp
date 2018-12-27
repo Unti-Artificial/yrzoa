@@ -61,16 +61,12 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">考勤管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">查看本月考勤信息</a></dd>
+                        <dd><a href="<%=basePath%>oaSystem/clockOwnInf.action?userId=${userId}">查看本月考勤信息</a></dd>
+                        <dd><a href="<%=basePath%>oaSystem/clockInf.action">查看全体人员本月考勤信息</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">公告管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">发布公告</a></dd>
-                        <dd><a href="javascript:;">查看公告</a></dd>
-                        <dd><a href="javascript:;">公告管理</a></dd>
-                    </dl>
+                    <a href="<%=basePath%>oaSystem/showInform.action?userId=${userId}">公告管理</a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">工作管理</a>
@@ -107,12 +103,13 @@
             <legend>个人信息汇总</legend>
         </fieldset>
         <div class="layui-container">
-            <form action="" class="layui-form" lay-filter="" id="passwordForm">
+            <form class="layui-form" id="passwordForm">
                 <input type="hidden" name="userName" value="${userName}">
+                <input type="hidden" name="userId" value="${userId}">
                 <div class="layui-form-item" style="margin-top: 30px">
                     <label class="layui-form-label">原密码</label>
                     <div class="layui-input-block">
-                        <input type="text" name="" id="update_account" value="${oldPassword}" autocomplete="off"
+                        <input type="text" id="update_account" value="${oldPassword}" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -163,6 +160,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "下班打卡成功,出行请注意安全",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 }else if (data == "failure"){
@@ -170,7 +169,9 @@
                         var layer = layui.layer;
                         layer.open({
                             title:"打卡信息",
-                            content:"打开失败,请联系管理员"
+                            content:"打开失败,请联系管理员",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         })
                     })
                 }else if (data == "out clocked"){
@@ -178,7 +179,9 @@
                         var layer = layui.layer;
                         layer.open({
                             title:"打卡信息",
-                            content:"已经打过卡"
+                            content:"已经打过卡",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         })
                     })
                 }else if (data == "unknown error"){
@@ -186,7 +189,9 @@
                         var layer = layui.layer;
                         layer.open({
                             title:"打卡信息",
-                            content:"出现未知错误，请联系管理员"
+                            content:"出现未知错误，请联系管理员",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         })
                     })
                 }else if (data == "time error"){
@@ -194,12 +199,13 @@
                         var layer = layui.layer;
                         layer.open({
                             title:"打卡信息",
-                            content:"未到规定时间，请17：30来打卡"
+                            content:"未到规定时间，请17：30来打卡",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         })
                     })
                 }
             }
-
         })
     }
     function doClock(userName) {
@@ -214,6 +220,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "今日已经完成打卡",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 } else if (data == "success") {
@@ -222,6 +230,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "打卡成功",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 } else if (data == "failure") {
@@ -230,6 +240,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "打卡失败",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 } else if (data == "late") {
@@ -238,6 +250,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "今日迟到，打卡成功，明天请注意!",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 } else if (data == "late failure") {
@@ -246,6 +260,8 @@
                         layer.open({
                             title: "打卡信息",
                             content: "今日迟到，打卡失败，请联系相关人员!",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     })
                 } else if (data == "late clocked") {
@@ -253,7 +269,9 @@
                         var layer = layui.layer;
                         layer.open({
                             title: "打卡信息",
-                            content: "今日迟到,已经打过卡!",
+                            content: "今日迟到,已经打过卡",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 } else if (data == "null") {
@@ -262,43 +280,36 @@
                         layer.open({
                             title: "打卡信息",
                             content: "用户信息出现错误,请联系管理员",
+                            anim:4
+                            ,offset: ['200px', '500px']
                         });
                     });
                 }
             }
         })
     }
-    function doUpdatePwd(userName,oldPassword){
-        var newPassword = document.getElementById("newPassword").value;
-        var repeatPassword = document.getElementById("repeatPassword").value;
-        if (newPassword == repeatPassword) {
+    function doUpdatePwd(){
+            var newPassword = document.getElementById("newPassword").value;
+            var repeatPassword = document.getElementById("repeatPassword").value;
+            if (newPassword == repeatPassword) {
             $.ajax({
                 type: "post",
-                url: "",
+                url: "<%=basePath%>oaSystem/doUpdatePwd.action",
                 data: $("#passwordForm").serialize(),
                 success(data) {
-                    if (data == "success") {
-                        layui.use('layer', function () {
-                            var layer = layui.layer;
-                            layer.open({
-                                title: "提示信息",
-                                content: "更改密码成功"
-                            })
-                        })
-                    } else if (data == "failure") {
-                        layui.use('layer', function () {
-                            var layer = layui.layer;
-                            layer.open({
-                                title: "提示信息",
-                                content: "更改密码失败"
-                            })
-                        })
+                    if(data != null){
+                        alert("更改成功");
                     }
-                }
+                    else
+                    {
+                        alert("请联系管理员,系统出错")
+                    }
+                    }
             })
         }
         else if (newPassword != repeatPassword) {
               alert("两次密码输入不一致");
+              return false;
         }
     }
 </script>

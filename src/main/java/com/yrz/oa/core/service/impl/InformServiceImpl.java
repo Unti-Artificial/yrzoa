@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service("informService")
 @Transactional
@@ -15,17 +17,22 @@ public class InformServiceImpl implements InformService {
     private InformDao informDao;
 
     @Override
-    public Inform getInformContent(Integer id) {
-        return informDao.getInformContent(id);
+    public int updateInform(Inform inform) {
+        return informDao.updateInform(inform);
     }
 
     @Override
-    public int updateInform(String content) {
-        return informDao.updateInform(content);
+    public int addInform(Inform inform) {
+        return informDao.addInform(inform);
     }
 
     @Override
-    public int publishInform(Inform inform) {
-        return informDao.publishInform(inform);
+    public List<Inform> getAllInform() {
+        return informDao.getAllInform();
+    }
+
+    @Override
+    public Inform getInformById(Integer InformId) {
+        return informDao.getInformById(InformId);
     }
 }

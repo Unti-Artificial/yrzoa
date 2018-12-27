@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.yrz.oa.core.po.OaUser" %><%--
   Created by IntelliJ IDEA.
   User: 123
   Date: 2018/12/18
@@ -14,10 +14,8 @@
 %>
 <html>
 <head>
-    <title>系统主界面</title>
+    <title>Title</title>
     <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
-    <style type="text/css">
-    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -25,10 +23,8 @@
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">账户信息管理</a></li>
-            <li class="layui-nav-item"><a href="" onclick="fingCalendar()">查看日历</a></li>
-            <li class="layui-nav-item"><a href="">公告查看</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" onclick="doClock('${userName}')">打卡</a>
+            <li class="layui-nav-item"><a href="javascript:;">公告查看</a></li>
+            <li class="layui-nav-item"><a href="javascript:;">打卡</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="doClock('${userName}')">上班打卡</a></dd>
                     <dd><a href="javascript:;" onclick="doClockOut('${userName}')">下班打卡</a></dd>
@@ -51,7 +47,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
@@ -92,88 +88,46 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                   <a href="javascript:;">审批管理</a>
+                    <a href="javascript:;">审批管理</a>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;">系统管理</a></li>
 
             </ul>
         </div>
     </div>
+
     <div class="layui-body">
-        <!-- 内容主体区域 -->
         <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md9">
-                    <div class="layui-card">
-                        <div class="layui-card-header">工作内容</div>
-                        <div class="layui-card-body">
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                            <p>卡片式面板面板通常用于非白色背景色的主体内
-                                从而映衬出边框投影</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md3">
-                    <div id="calendarTable"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                     <h2>今日天气预报</h2>
-                </div>
-                <div class="layui-col-md9">
-                   <div id="InformContent">
-                         天气预报内容
-                   </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-container">
-            <div class="layui-row">
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            放假事宜
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通告
-                        </div>
-
-                        <div class="layui-card-body">
-                            内容
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md4">
-                    <div class="layui-card">
-                        <div class="layui-card-header">
-                            通讯录
-                        </div>
-                        <div class="layui-card-body">
-                            内容
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>迟到次数</th>
+                <th>正常次数</th>
+                <th>打卡总次数</th>
+                <th>开始时间</th>
+                <th>截至时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${userName}</td>
+                <td>${overClockTime}</td>
+                <td>${normalClockTime}</td>
+                <td>${altogetherTime}</td>
+                <td>${startDate}</td>
+                <td>${endDate}</td>
+            </tr>
+            </tbody>
+        </table>
         </div>
     </div>
+
     <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
@@ -182,22 +136,10 @@
 </body>
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
+<script src="<%=basePath%>js/echarts.min.js"></script>
 <script>
-    layui.use(['jquery', 'layer','element'], function (){
+    layui.use(['layer', 'element'], function () {
         var element = layui.element;
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        laydate.render({
-            elem: '#calendarTable'
-            ,position: 'static'
-            ,format: '北京时间:yyyy年MM月dd日'
-            ,calendar: true
-            ,showBottom: false
-            ,change: function(value, date){ //监听日期被切换
-                lay('#testView').html(value);
-            }
-        });
     });
     function doClockOut(userName) {
         $.ajax({
@@ -211,7 +153,7 @@
                         layer.open({
                             title: "打卡信息",
                             content: "下班打卡成功,出行请注意安全",
-                            anim:4
+                             anim:4
                             ,offset: ['200px', '500px']
                         });
                     });
@@ -338,6 +280,5 @@
                 }
             }
         })
-    }
-</script>
+    }</script>
 </html>

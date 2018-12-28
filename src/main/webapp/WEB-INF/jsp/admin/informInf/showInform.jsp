@@ -26,10 +26,7 @@
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">账户信息管理</a></li>
-            <li class="layui-nav-item"><a href="" onclick="fingCalendar()">查看日历</a></li>
-            <li class="layui-nav-item"><a href="">公告查看</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" onclick="doClock('${userName}')">打卡</a>
+            <li class="layui-nav-item"><a href="javascript:;">打卡</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="doClock('${userName}')">上班打卡</a></dd>
                     <dd><a href="javascript:;" onclick="doClockOut('${userName}')">下班打卡</a></dd>
@@ -115,7 +112,7 @@
         </div>
         <!-- 表格主题区域 -->
         <div class="layui-container">
-            <table class="layui-table">
+            <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="150">
                     <col width="200">
@@ -141,8 +138,8 @@
                         <td>${list.informCreateTime}</td>
                         <td>
                             <button type="button" onclick="doFindInformContent(${list.informId})" class="layui-btn layui-btn-sm">查看公告内容</button>
-                            <button type="button" onclick="doFindInform(${list.informId})" class="layui-btn layui-btn-sm">更改公告</button>
-                            <button type="button" onclick="doDeleteInform(${list.informId})" class="layui-btn layui-btn-sm">删除公告</button>
+                            <button type="button" onclick="doFindInform(${list.informId})" class="layui-btn  layui-btn-sm layui-btn-warm">更改公告</button>
+                            <button type="button" onclick="doDeleteInform(${list.informId})" class="layui-btn layui-btn-sm layui-btn-danger" >删除公告</button>
                         </td>
                     </tr>
                 </tbody>
@@ -150,38 +147,48 @@
             </table>
         </div>
     </div>
-     <div class="layui-row" id="informInf" style="display: none">
-         <div class="layui-col-md11">
-             <c:forEach items="${informList}" var="form">
-             <form class="layui-form" id="updateInform">
-                 <input type="hidden" name="informId" value="${form.informId}">
 
-                 <div class="layui-form-item">
-                     <label class="layui-form-label">通知标题</label>
-                     <div class="layui-input-inline">
-                         <input type="text" name="informTitle" value="${form.informTitle}" class="layui-input">
-                     </div>
-                 </div>
-                 <div class="layui-form-item">
-                     <label class="layui-form-label">发布人</label>
-                     <div class="layui-input-inline">
-                         <input type="text" name="informUserName" value="${form.informUserName}"  class="layui-input">
-                     </div>
-                 </div>
-                 <div class="layui-form-item">
-                      <label></label>
-                     <div class="layui-input-inline">
-                         <input type="time" name="informUserName" value="${form.informUserName}"  class="layui-input">
-                     </div>
-                 </div>
-             </form>
-             </c:forEach>
-         </div>
 
-     </div>
     <div class="layui-footer la">
         <!-- 底部固定区域 -->
         © 易融租网络科技有限公司 2018-2019
+    </div>
+</div>
+
+<div class="layui-row" style="display:none;">
+    <div class="layui-col-md11" >
+        <form class="layui-form" id="informInf" >
+            <input type="hidden" name="informId" value="${informId}" id="inform_id">
+            <div class="layui-form-item">
+                <label class="layui-form-label">通知标题</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="informTitle" value="${informTitle}" id="inform_title" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">发布人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="informUserName" value="${informUserName}" id="inform_username" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="informCreateTime"  value="${informCreateTime}" id="inform_createtime" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告内容</label>
+                <div class="layui-input-inline">
+                    <textarea id="inform_content" value="${informContent}" class="layui-textarea"  name="informContent"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn layui-btn-normal" onclick="doUpdateInform()">更改</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 </body>
@@ -341,33 +348,53 @@
         })
     }
 
-    //查看公告
-    function doFindInform(informId) {
-         $.ajax({
-             type:"post",
-             url:"<%=basePath%>oaSystem/doFindInform.action",
-             data:{"informId":informId},
-             success(data){
-                 layui.use(['layer','jquery'],function () {
-                     var $ = layui.$
-                         ,layer = layui.layer;
-                     layer.open({
-                         type:1,
-                         title:"通知信息",
-                         area: ['50%','50%'],
-                         content:$("#informInf").html()
-                     })
-                 })
-             }
+    //查看公告内容
+    function doFindInform(id) {
+        layui.use(['layer','jquery'],function () {
+            var $ = layui.$
+                ,layer = layui.layer;
+            layer.open({
+                type:1,
+                title:"通知信息",
+                area: ['50%','50%'],
+                content: $("#informInf").html()
 
-         })
+            });
+            $.ajax({
+                type:"post",
+                url:"<%=basePath%>oaSystem/doFindInform.action",
+                data:{"id":id},
+                success(data){
+                }
+            })
+
+        });
     }
     //删除公告
     function doDeleteInform(informId) {
+        layui.use(['layer','jquery'],function () {
+               var $ = layui.$
+                ,layer = layui.layer;
+                $.ajax({
+                    type:"post",
+                    url:"<%=basePath%>oaSystem/deleteInform.action",
+                    data:{"informId":informId},
+                    success(data) {
+                           if (data == "success") {
+                               alert("删除成功");
+                               window.location.reload();
+                           }
+                           if (data == "failure"){
+                               alert("删除失败");
+                               window.location.reload();
+                           }
 
+                    }
+                })
+            })
     }
     //修改公告
-    function doUpdate() {
+    function doUpdateInform() {
 
     }
     //添加公告

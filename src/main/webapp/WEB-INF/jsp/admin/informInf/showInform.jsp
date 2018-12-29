@@ -158,29 +158,29 @@
 <div class="layui-row" style="display:none;">
     <div class="layui-col-md11" >
         <form class="layui-form" id="informInf" >
-            <input type="hidden" name="informId" value="${informId}" id="inform_id">
+            <input type="hidden" name="informId" id="inform_id">
             <div class="layui-form-item">
                 <label class="layui-form-label">通知标题</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="informTitle" value="${informTitle}" id="inform_title" class="layui-input">
+                    <input type="text" name="informTitle" id="inform_title" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">发布人</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="informUserName" value="${informUserName}" id="inform_username" class="layui-input">
+                    <input type="text" name="informUserName" id="inform_username" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">创建时间</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="informCreateTime"  value="${informCreateTime}" id="inform_createtime" class="layui-input">
+                    <input type="text" name="informCreateTime" id="inform_createtime" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">公告内容</label>
                 <div class="layui-input-inline">
-                    <textarea id="inform_content" value="${informContent}" class="layui-textarea"  name="informContent"></textarea>
+                    <textarea id="inform_content" class="layui-textarea"  name="informContent"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -353,21 +353,25 @@
         layui.use(['layer','jquery'],function () {
             var $ = layui.$
                 ,layer = layui.layer;
-            layer.open({
-                type:1,
-                title:"通知信息",
-                area: ['50%','50%'],
-                content: $("#informInf").html()
-
-            });
             $.ajax({
                 type:"post",
                 url:"<%=basePath%>oaSystem/doFindInform.action",
                 data:{"id":id},
                 success(data){
+                    $("#layer-form > #inform_title").val(data.informTitle);
+                    $("#layer-form > #inform_content").val(data.informContent);
+                    $("#layer-form > #inform_username").val(data.informUserName);
+                    $("#layer-form > #inform_id").val(data.informId);
+                    $("#layer-form > #inform_createtime").val(data.informCreateTime);
                 }
             })
-
+            layer.open({
+                type:1,
+                id:"layer-form",
+                title:"通知信息",
+                area: ['50%','50%'],
+                content: $("#informInf").html()
+            });
         });
     }
     //删除公告
@@ -381,12 +385,10 @@
                     data:{"informId":informId},
                     success(data) {
                            if (data == "success") {
-                               alert("删除成功");
-                               window.location.reload();
+                               layer.msg('删除成功', {icon: 2})
                            }
                            if (data == "failure"){
-                               alert("删除失败");
-                               window.location.reload();
+                               layer.msg('删除成功', {icon: 5},)
                            }
 
                     }

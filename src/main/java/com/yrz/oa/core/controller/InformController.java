@@ -53,6 +53,12 @@ public class InformController {
         }
     }
 
+    @RequestMapping(value = "toUpdateJsp.action")
+    public String toUpdateJsp()
+    {
+
+     return "";
+    }
     @RequestMapping(value = "doFindInform.action")
     public String getInformById(Integer id,Model model){
         Inform inform = informService.getInformById(id);

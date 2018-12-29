@@ -27,12 +27,17 @@ public class InformServiceImpl implements InformService {
     }
 
     @Override
+    public int deleteInformById(Integer informId) {
+        return informDao.deleteInformById(informId);
+    }
+
+    @Override
     public List<Inform> getAllInform() {
         return informDao.getAllInform();
     }
 
     @Override
-    public Inform getInformById(Integer InformId) {
-        return informDao.getInformById(InformId);
+    public Inform getInformById(Integer id) {
+        return informDao.getInformById(id);
     }
 }

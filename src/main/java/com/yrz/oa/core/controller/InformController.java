@@ -54,12 +54,15 @@ public class InformController {
     }
 
     @RequestMapping(value = "doFindInform.action")
-    @ResponseBody
-    public Inform getInformById(Integer InformId){
-        Inform inform = informService.getInformById(InformId);
-        return inform;
+    public String getInformById(Integer id,Model model){
+        Inform inform = informService.getInformById(id);
+        model.addAttribute("informId",inform.getInformId());
+        model.addAttribute("informTitle",inform.getInformTitle());
+        model.addAttribute("informCreateTime",inform.getInformCreateTime());
+        model.addAttribute("informContent",inform.getInformContent());
+        model.addAttribute("informUserName",inform.getInformUserName());
+        return "admin/informInf/showInform";
     }
-
     /**
      *
      * @param userId
@@ -69,11 +72,26 @@ public class InformController {
     @RequestMapping(value = "showInform.action")
     public String toShowInform(Integer userId, Model model){
       OaUser oaUser = oaUserService.doFindOwnInf(userId);
-        model.addAttribute("useName",oaUser.getUserName());
+        model.addAttribute("userName",oaUser.getUserName());
         model.addAttribute("userId",oaUser.getUserId());
         //do   select Inform table
         List<Inform> inform = informService.getAllInform();
         model.addAttribute("informList",inform);
         return "admin/informInf/showInform";
+    }
+    /**
+     *
+     */
+    @RequestMapping("deleteInform.action")
+    @ResponseBody
+    public String deleteInform(Integer informId){
+        int row = informService.deleteInformById(informId);
+        if (row>0) {
+            return "success";
+        }
+        else {
+            return "failure";
+        }
+
     }
 }

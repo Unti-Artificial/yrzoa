@@ -35,12 +35,17 @@
         </set>
         where informId = #{infomID}
     </update>
+    <!--删除公告 -->
+    <delete id="deleteInformById" parameterType="Integer">
+    delete from oa_inform where InformId = #{InformId}
+    </delete>
     <!--获取所有公告内容-->
     <select id="getAllInform" resultType="Inform">
        select * from oa_inform
     </select>
     <!--根据Id 获取内容 -->
     <select id="getInformById" parameterType="Integer" resultType="Inform">
-      select * from oa_inform where InformId = #{InformId}
+      select * from oa_inform where InformId = #{id}
     </select>
+
 </mapper>

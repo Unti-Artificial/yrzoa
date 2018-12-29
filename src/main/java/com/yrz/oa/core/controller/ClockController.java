@@ -107,7 +107,6 @@ public class ClockController {
             } else if (todayDegree == 1) {
                 return "late clocked";
             } else {
-                System.out.println(todayDegree);
                 return "null";
             }
         }
@@ -141,8 +140,6 @@ public class ClockController {
         Integer todayOutDegree = clockService.selectIfOrNotClockOut(today,userName);
         date1 = f.parse(f.format(new Date()));//获取当前的时间
         date2 = f.parse(d.format(new Date()) + " " + "17:30:00");//下班打卡的时间
-        System.out.println(date1);
-        System.out.println(date2);
         if (date1.getTime()>date2.getTime()){
             //此时可以正常下班打卡
             if (todayOutDegree ==null || todayOutDegree ==0) {

@@ -23,7 +23,6 @@
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="javascript:;">公告查看</a></li>
             <li class="layui-nav-item"><a href="javascript:;">打卡</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" onclick="doClock('${userName}')">上班打卡</a></dd>

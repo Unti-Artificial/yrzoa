@@ -7,7 +7,7 @@ public class Apply {
     private String applyState; //申请状态 (0:申请还未提交,1:申请提交,2:申请提交且被提交至下一层审批3:申请被驳回)
     private String applyContent;//申请备注
     private String  applyTitle; //申请标题(申请标题)
-    private String applyFinalResult;
+    private String applyFinalResult;//审批最后的结果
 
     public Integer getApplyId() {
         return applyId;

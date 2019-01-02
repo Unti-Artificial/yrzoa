@@ -26,7 +26,9 @@ public class Test {
             System.out.println("不能打卡");
         }
 
-
+        String role = "admin";
+        role = role.replace("admin","管理员");
+        System.out.println(role);
     }
 
 }

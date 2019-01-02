@@ -50,7 +50,10 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;">信息管理</a>
+                 <a href="<%=basePath%>oaSystem/toMain.action?userId=${userId}">后台主页面</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=basePath%>oaSystem/doFindOwnInf.action?userId=${userId}">查看个人信息</a></dd>
                         <dd><a href="<%=basePath%>oaSystem/doEditOwnInf.action?userId=${userId}">修改个人信息</a></dd>

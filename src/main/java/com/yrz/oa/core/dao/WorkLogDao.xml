@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yrz.oa.core.dao.WorkLogDao">
+    <!-- 根据姓名查找对应的工作日志 -->
+    <select id="selectWorkLogListByName" parameterType="String" resultType="WorkLog">
+          select * from oa_worklog where logUser = #{user}
+    </select>
+    <!-- 用户添加工作日志-->
+    <insert id="addWorkLog" parameterType="WorkLog">
+       insert  into oa_worklog
+       (
+        logContent,
+        logUser,
+        logCreateTime
+       ) values (
+       #{logContent},
+       #{logUser},
+       #{logCreateTime}
+       )
+    </insert>
+    <!--更改工作日志 -->
+    <update id="updateWorkLog" parameterType="WorkLog">
+        update oa_worklog
+        <set>
+            <if test="logContent !=null">
+                logContent = #{logContent},
+            </if>
+            <if test="logUser !=null">
+                logUser = #{logUser},
+            </if>
+            <if test="logCreateTime !=null">
+                logCreateTime = #{logCreateTime},
+            </if>
+        </set>
+        where logId = #{logId}
+    </update>
+    <!--删除日志 -->
+    <delete id="deleteWorkLog" parameterType="Integer">
+      delete from oa_worklog where logId = #{logId}
+    </delete>
+    <!-- -->
+</mapper>

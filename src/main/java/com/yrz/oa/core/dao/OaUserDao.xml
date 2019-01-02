@@ -64,6 +64,7 @@
         </set>
         where userId = #{userId}
     </update>
+    <!-- 用户表,通讯录 -->
     <select id="selectAllUser" resultType="OaUser">
         select *
         from oa_user

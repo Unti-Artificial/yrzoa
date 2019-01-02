@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Unti
-  Date: 2018/12/27
-  Time: 17:10
+  Date: 2019/1/2
+  Time: 11:13
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,12 +14,10 @@
 %>
 <html>
 <head>
-    <title>添加公告界面</title>
-    <link href="<%=basePath%>layui/css/layui.css" rel="stylesheet">
+    <title>工作流程</title>
 </head>
-<body>
+<body  class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <!--头部导航栏 -->
     <div class="layui-header">
         <div class="layui-logo">易融租办公系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -43,16 +41,15 @@
             </li>
         </ul>
     </div>
-    <!--左侧边栏 -->
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item">
                     <a href="<%=basePath%>oaSystem/toMain.action?userId=${userId}">后台主页面</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a class="" href="javascript:;">信息管理</a>
+                    <a href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=basePath%>oaSystem/doFindOwnInf.action?userId=${userId}">查看个人信息</a></dd>
                         <dd><a href="<%=basePath%>oaSystem/doEditOwnInf.action?userId=${userId}">修改个人信息</a></dd>
@@ -78,7 +75,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">日历记事</a>
+                    <a href="javascript:;"></a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">查看记事</a></dd>
                     </dl>
@@ -99,11 +96,5 @@
         </div>
     </div>
 </div>
-<div class="layui-footer la">
-    <!-- 底部固定区域 -->
-    © 易融租网络科技有限公司 2018-2019
-</div>
-<script src="<%=basePath%>layui/layui.js"></script>
-<script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 </body>
 </html>

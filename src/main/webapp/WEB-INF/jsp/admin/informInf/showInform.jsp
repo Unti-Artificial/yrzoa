@@ -51,6 +51,9 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
+                    <a href="<%=basePath%>oaSystem/toMain.action?userId=${userId}">后台主页面</a>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">信息管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="<%=basePath%>oaSystem/doFindOwnInf.action?userId=${userId}">查看个人信息</a></dd>
@@ -155,40 +158,30 @@
     </div>
 </div>
 
-<div class="layui-row" style="display:none;">
-    <div class="layui-col-md11" >
-        <form class="layui-form" id="informInf" >
-            <input type="hidden" name="informId" id="inform_id">
-            <div class="layui-form-item">
-                <label class="layui-form-label">通知标题</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="informTitle" id="inform_title" class="layui-input">
+<!--数据表格 -->
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">开启头部工具栏</div>
+                <div class="layui-card-body">
+                    <table class="layui-hide" id="test-table-toolbar" lay-filter="test-table-toolbar"></table>
+
+                    <script type="text/html" id="test-table-toolbar-toolbarDemo">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">查看相应数据</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                        </div>
+                    </script>
+
+                    <script type="text/html" id="test-table-toolbar-barDemo">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">发布人</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="informUserName" id="inform_username" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">创建时间</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="informCreateTime" id="inform_createtime" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">公告内容</label>
-                <div class="layui-input-inline">
-                    <textarea id="inform_content" class="layui-textarea"  name="informContent"></textarea>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="button" class="layui-btn layui-btn-normal" onclick="doUpdateInform()">更改</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>
@@ -338,9 +331,9 @@
                         var layer = layui.layer;
                         layer.open({
                             title: "打卡信息",
-                            content: "用户信息出现错误,请联系管理员",
-                            anim: 4
-                            , offset: ['200px', '500px']
+                           content: "用户信息出现错误,请联系管理员",
+                            anim: 4,
+                            offset: ['200px', '500px']
                         });
                     });
                 }
@@ -356,21 +349,18 @@
             $.ajax({
                 type:"post",
                 url:"<%=basePath%>oaSystem/doFindInform.action",
-                data:{"id":id},
-                success(data){
-                    $("#layer-form > #inform_title").val(data.informTitle);
-                    $("#layer-form > #inform_content").val(data.informContent);
-                    $("#layer-form > #inform_username").val(data.informUserName);
-                    $("#layer-form > #inform_id").val(data.informId);
-                    $("#layer-form > #inform_createtime").val(data.informCreateTime);
-                }
+                data:{"id":id}
             })
             layer.open({
                 type:1,
                 id:"layer-form",
                 title:"通知信息",
-                area: ['50%','50%'],
-                content: $("#informInf").html()
+                offset: 'auto',
+                area: ['400px','400px'],
+                content: $("#informInf").html(),
+                success:function (layero,data) {
+                        $("#inform_id.layui-textarea").val(data.informId);
+                }
             });
         });
     }
@@ -385,12 +375,15 @@
                     data:{"informId":informId},
                     success(data) {
                            if (data == "success") {
-                               layer.msg('删除成功', {icon: 2})
+                               layer.msg("删除成功",{icon: 1,time:1000,end:function(){
+                                       location.reload();
+                                   }})
                            }
-                           if (data == "failure"){
-                               layer.msg('删除成功', {icon: 5},)
-                           }
-
+                           if (data == "failure") {
+                            layer.msg("删除成功",{icon: 2,time:1000,end:function(){
+                                    location.reload();
+                                }})
+                        }
                     }
                 })
             })

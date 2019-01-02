@@ -36,7 +36,9 @@ public class OaUserController {
 			String userName = oaUser.getUserName();
 			String userRole = oaUser.getUserRole();
 			session.setAttribute("USER_NAME", oaUser.getUserName());
-			session.setAttribute("USER_ROLE", oaUser.getUserRole());
+			String role = oaUser.getUserRole();
+			role = role.replace("admin","管理员");
+			session.setAttribute("USER_ROLE", role);
 			session.setAttribute("USER_ID", oaUser.getUserId());
 			model.addAttribute("userId", userId);
 			model.addAttribute("userName", userName);
@@ -51,7 +53,25 @@ public class OaUserController {
 		model.addAttribute("error2", "账号或密码错误，请重新输入！");
 		return "login";
 	}
+	@RequestMapping(value = "/toMain.action")
+	public String toMain(Integer userId ,Model model,HttpSession session){
+		OaUser oaUser = oaUserService.doFindOwnInf(userId);
+		if (oaUser.getUserRole().equals("admin")){
+			model.addAttribute("userName",oaUser.getUserName());
+			session.setAttribute("USER_NAME", oaUser.getUserName());
+			String role = oaUser.getUserRole();
+			role = role.replace("admin","管理员");
+			session.setAttribute("USER_ROLE", role);
+			session.setAttribute("USER_ID", oaUser.getUserId());
+			model.addAttribute("userId",oaUser.getUserId());
+			return "admin/main";
+		}else {
+			model.addAttribute("userName",oaUser.getUserName());
+			model.addAttribute("userId",oaUser.getUserId());
+			return "user/main";
+		}
 
+		}
 	/**
 	 * 退出登录
 	 */

@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="weather_forecast:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/weather_forecast_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="weather_forecast/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="weather_forecast" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

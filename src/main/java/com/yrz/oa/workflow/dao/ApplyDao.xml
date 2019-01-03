@@ -8,20 +8,26 @@
            (
            applyUser,
            applyCreateTime,
-           applyState,
+           applyFirstState,
+           applySecondState,
+           applyThirdState,
            applyContent,
            applyTitle
            )
           values (
            #{applyUser},
            #{applyCreateTime},
-           '0',
+           '1',
+           '1',
+           '1',
            #{applyContent},
            #{applyTitle}
           )
     </insert>
-    <!--申请失败-->
-    <select id="" parameterType="" resultType="">
-
+    <!--查询结果-->
+    <select id="selectFinalResult" parameterType="Integer" resultType="Result">
+     select result.approveResult,result.approveFinalUser
+     from oa_workflow_result result
+     where applyId = #{applyId}
     </select>
 </mapper>

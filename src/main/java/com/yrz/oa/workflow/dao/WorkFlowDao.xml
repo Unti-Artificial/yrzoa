@@ -2,30 +2,229 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yrz.oa.workflow.dao.WorkFLowDao">
-    <!--start: first approve -->
-    <!--start: need to deal with -->
-    <select id="selectNotDealWithApply" resultType="Apply">
+    <!--start: need to deal with approve -->
+    <select id="selectNotDealWithFirstApply" resultType="Apply">
      select apply.applyUser,apply.applyId,apply.applyCreateTime,apply.applyContent,apply.applyTitle
      from oa_workflow_apply apply
-     where applyState = '0'
+     where applyFirstState = '1'
+    </select>
+
+    <select id="selectNotDealWithSecondApply" resultType="Apply">
+     select apply.applyUser,apply.applyId,apply.applyCreateTime,apply.applyContent,apply.applyTitle
+     from oa_workflow_apply apply
+     where applySecondState = '1'
+    </select>
+
+    <select id="selectNotDealWithThirdApply" resultType="Apply">
+     select apply.applyUser,apply.applyId,apply.applyCreateTime,apply.applyContent,apply.applyTitle
+     from oa_workflow_apply apply
+     where applyThirdState = '1'
     </select>
     <!-- end: need to deal with-->
-    <!--start: deal with apply -->
-     <update id="updateApplyState" parameterType="String">
+
+
+    <!--start: deal with apply   if apply pass all approve -->
+    <!--SQL: selectNotDealWithFirstApply-->
+     <update id="updateFirstApplyState" parameterType="Apply">
          update oa_workflow_apply
          <set>
-             <if test="applyState !=null">
-                  applyState = #{applyState}
+             <if test="applyFirstState !=null">
+                 applyFirstState = #{applyFirstState}
              </if>
          </set>
          where applyId = #{applyId}
      </update>
+     <insert id="firstApprove" parameterType="FirstApprove">
+          insert into oa_workflow_firstapprove
+                (
+                 firstApproveId,
+                 firstApproveUser,
+                 firstApproveTime,
+                 firstApproveTitle,
+                 firstApproveContent,
+                 applyUser,
+                )values
+                (
+                #{firstApproveId},
+                #{firstApproveUser},
+                #{firstApproveTime},
+                #{firstApproveTitle},
+                #{firstApproveContent},
+                #{applyUser}
+                )
+     </insert>
+    <!--start: pass first approve, come in second approve-->
+     <insert id="PassFirstApprove" parameterType="FirstResult">
+           insert into oa_workflow_firstresult(
+              applyId,
+              firstResult,
+              resultCreateTime
+           )values (
+              #{applyId},
+              #{firstResult},
+              #{resultCreateTime}
+           )
+     </insert>
+    <!-- SQL : selectNotDealWithSecondApply -->
+    <update id="updateSecondApplyState" parameterType="Apply">
+        update oa_workflow_apply
+        <set>
+            <if test="applySecondState !=null">
+                applySecondState = #{applySecondState}
+            </if>
+        </set>
+        where applyId = #{applyId}
+    </update>
+     <insert id="secondApprove" parameterType="FirstApprove">
+           insert into oa_workflow_secondapprove(
+                 secondApproveId,
+                 secondApproveUser,
+                 secondApproveTime,
+                 secondApproveTitle,
+                 secondApproveContent,
+                 applyUser
+           )values (
+                 #{secondApproveId},
+                 #{secondApproveUser},
+                 #{secondApproveTime},
+                 #{secondApproveTitle},
+                 #{secondApproveContent},
+                 #{applyUser}
+           )
+     </insert>
+     <!--end: pass first approve, come in second approve -->
+    <!--start: pass second approve, come in third approve-->
+    <insert id="PassSecondApprove" parameterType="SecondResult">
+           insert into oa_workflow_secondresult(
+              applyId,
+              secondResult,
+              resultCreateTime
+           )values (
+              #{applyId},
+              #{secondResult},
+              #{resultCreateTime}
+           )
+     </insert>
+    <!--SQL: selectNotDealWithThirdApply-->
+    <update id="updateThirdApplyState" parameterType="Apply">
+        update oa_workflow_apply
+        <set>
+            <if test="applyThirdState !=null">
+                applyThirdState = #{applyThirdState}
+            </if>
+        </set>
+        where applyId = #{applyId}
+    </update>
+    <insert id="thirdApprove" parameterType="ThirdApprove">
+           insert into oa_workflow_thirdapprove(
+                 thirdApproveId,
+                 thirdApproveUser,
+                 thirdApproveTime,
+                 thirdApproveTitle,
+                 thirdApproveContent,
+                 applyUser
+           )values (
+                 #{thirdApproveId},
+                 #{thirdApproveUser},
+                 #{thirdApproveTime},
+                 #{thirdApproveTitle},
+                 #{thirdApproveContent},
+                 #{applyUser}
+           )
+     </insert>
+    <!--end: pass second approve, come in third approve -->
+    <!-- start: final result-->
+    <insert id="PassThirdApprove" parameterType="ThirdResult">
+           insert into oa_workflow_thirdresult(
+              applyId,
+              thirdResult,
+              resultCreateTime
+           )values (
+              #{applyId},
+              #{thirdResult},
+              #{resultCreateTime}
+           )
+     </insert>
+     <insert id="addResult" parameterType="Result">
+     insert into oa_workflow_result(
+          approveId,
+          approveFinalResult,
+          approveFinalUser,
+          approveFinalCreateTime,
+          applyUser
+     )values (
+          #{approveId},
+          #{approveFinalResult},
+          #{approveFinalUser},
+          #{approveFinalCreateTime},
+          #{applyUser}
+     )
+     </insert>
+    <!-- end:final result-->
+    <!--end: deal with apply   if apply pass all approve  -->
 
-
-
-
-
-
-    <!--end: deal with apply -->
-    <!--end: first approve -->
+    <!--start :if apply pass first approve but fall other approve,or apply pass second approve but fall other approve,
+    or pass other approve ,but fall third approve-->
+    <insert id="fallFirstApprove" parameterType="FirstApproveFailure">
+           insert into oa_workflow_firstapprove_failure(
+            applyId,
+            applyUser,
+            approveFinalResult,
+            approveFinalUser,
+            approveFinalCreateTime
+           ) values (
+            #{applyId},
+            #{applyUser},
+            #{approveFinalResult},
+            #{approveFinalUser},
+            #{approveFinalCreateTime}
+           )
+    </insert>
+    <insert id="fallSecondApprove" parameterType="SecondApproveFailure">
+            insert into oa_workflow_secondapprove_failure(
+             secondApproveId,
+             applyId,
+             secondApproveUser,
+             secondApproveReason,
+             secondApproveCreateTime
+            )values (
+             #{secondApproveId},
+             #{applyId},
+             #{secondApproveUser},
+             #{secondApproveReason},
+             #{secondApproveCreateTime}
+            )
+    </insert>
+    <insert id="fallThirdApprove" parameterType="ThirdApproveFailure">
+          insert into oa_workflow_thirdapprove_failure(
+                 thirdApproveId,
+                 applyId,
+                 thirdApproveUser,
+                 thirdApproveReason,
+                 thirdApproveCreateTime
+          )values (
+                 #{thirdApproveId},
+                 #{applyId},
+                 #{thirdApproveUser},
+                 #{thirdApproveReason},
+                 #{thirdApproveCreateTime}
+          )
+    </insert>
+     <insert id="addFailure" parameterType="Failure">
+       insert into oa_workflow_failure(
+           applyId,
+           finalApproveUser,
+           applyUser,
+           finalApproveLevel,
+           finalApproveReason
+           ) values (
+           #{applyId}
+           #{finalApproveUser}
+           #{applyUser}
+           #{finalApproveLevel}
+           #{finalApproveReason}
+          )
+     </insert>
+    <!-- end : if apply pass first approve but fall other approve,or apply pass second approve but fall other approve,
+    or pass other approve ,but fall third approve-->
 </mapper>

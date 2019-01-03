@@ -5,6 +5,8 @@ public class Result {
      private String  approveFinalResult;
      private String approveFinalUser;
      private String approveFinalCreateTime;
+     private String applyUser;
+
 
     public String getApproveId() {
         return approveId;
@@ -36,5 +38,13 @@ public class Result {
 
     public void setApproveFinalCreateTime(String approveFinalCreateTime) {
         this.approveFinalCreateTime = approveFinalCreateTime;
+    }
+
+    public String getApplyUser() {
+        return applyUser;
+    }
+
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
     }
 }

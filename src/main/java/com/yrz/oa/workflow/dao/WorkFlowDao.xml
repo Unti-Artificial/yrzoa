@@ -2,7 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yrz.oa.workflow.dao.WorkFLowDao">
-    <select id="" parameterType="" resultType="">
-
+    <!--start: first approve -->
+    <!--start: need to deal with -->
+    <select id="selectNotDealWithApply" resultType="Apply">
+     select apply.applyUser,apply.applyId,apply.applyCreateTime,apply.applyContent,apply.applyTitle
+     from oa_workflow_apply apply
+     where applyState = '0'
     </select>
+    <!-- end: need to deal with-->
+    <!--start: deal with apply -->
+     <update id="updateApplyState" parameterType="String">
+         update oa_workflow_apply
+         <set>
+             <if test="applyState !=null">
+                  applyState = #{applyState}
+             </if>
+         </set>
+         where applyId = #{applyId}
+     </update>
+
+
+
+
+
+
+    <!--end: deal with apply -->
+    <!--end: first approve -->
 </mapper>

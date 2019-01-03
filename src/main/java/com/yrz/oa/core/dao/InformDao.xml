@@ -33,7 +33,7 @@
                 informContent = #{informContent}
             </if>
         </set>
-        where informId = #{infomID}
+        where informId = #{infomId}
     </update>
     <!--删除公告 -->
     <delete id="deleteInformById" parameterType="Integer">

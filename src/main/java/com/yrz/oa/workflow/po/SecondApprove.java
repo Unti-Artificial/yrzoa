@@ -2,6 +2,7 @@ package com.yrz.oa.workflow.po;
 
 public class SecondApprove {
       private Integer secondApproveId;
+      private String applyUser;
       private String secondApproveUser;
       private String secondApproveTime;
       private String secondApproveResult;
@@ -54,5 +55,13 @@ public class SecondApprove {
 
     public void setSecondApproveContent(String secondApproveContent) {
         this.secondApproveContent = secondApproveContent;
+    }
+
+    public String getApplyUser() {
+        return applyUser;
+    }
+
+    public void setApplyUser(String applyUser) {
+        this.applyUser = applyUser;
     }
 }

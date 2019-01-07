@@ -30,18 +30,22 @@ public class OaUserController {
 	public String login(String account, String password, Model model,
 						HttpSession session) {
 		OaUser oaUser = oaUserService.doLogin(account, password);
-
+		List<OaUser> addressList = oaUserService.selectAllUser();
 		if (oaUser != null) {
 			Integer userId = oaUser.getUserId();
 			String userName = oaUser.getUserName();
 			String userRole = oaUser.getUserRole();
 			session.setAttribute("USER_NAME", oaUser.getUserName());
 			String role = oaUser.getUserRole();
-			role = role.replace("admin","管理员");
+			if (role.equals("admin"))
+				role = role.replace("admin","管理员");
+			if (role.equals("user"))
+				role = role.replace("user","普通用户");
 			session.setAttribute("USER_ROLE", role);
 			session.setAttribute("USER_ID", oaUser.getUserId());
 			model.addAttribute("userId", userId);
 			model.addAttribute("userName", userName);
+			model.addAttribute("addressList",addressList);
 			if (userRole.equals("admin")) {
 				return "admin/main";
 			}
@@ -56,6 +60,7 @@ public class OaUserController {
 	@RequestMapping(value = "/toMain.action")
 	public String toMain(Integer userId ,Model model,HttpSession session){
 		OaUser oaUser = oaUserService.doFindOwnInf(userId);
+		List<OaUser> addressList = oaUserService.selectAllUser();
 		if (oaUser.getUserRole().equals("admin")){
 			model.addAttribute("userName",oaUser.getUserName());
 			session.setAttribute("USER_NAME", oaUser.getUserName());
@@ -64,13 +69,21 @@ public class OaUserController {
 			session.setAttribute("USER_ROLE", role);
 			session.setAttribute("USER_ID", oaUser.getUserId());
 			model.addAttribute("userId",oaUser.getUserId());
+			model.addAttribute("addressList",addressList);
 			return "admin/main";
-		}else {
+		}else if (oaUser.getUserRole().equals("user")){
 			model.addAttribute("userName",oaUser.getUserName());
+			session.setAttribute("USER_NAME", oaUser.getUserName());
+			String role = oaUser.getUserRole();
+			role = role.replace("user","普通用户");
+			session.setAttribute("USER_ROLE", role);
+			session.setAttribute("USER_ID", oaUser.getUserId());
 			model.addAttribute("userId",oaUser.getUserId());
+			model.addAttribute("addressList",addressList);
 			return "user/main";
+		}else {
+			return "000";
 		}
-
 		}
 	/**
 	 * 退出登录
@@ -168,7 +181,7 @@ public class OaUserController {
 			return null;
 		}
 	}
-	@RequestMapping(value = "doFindAllUser")
+	@RequestMapping(value = "doFindAllUser.action")
 	@ResponseBody
 	public List<OaUser> selectAllUser(){
        List<OaUser> oaUsers = oaUserService.selectAllUser();

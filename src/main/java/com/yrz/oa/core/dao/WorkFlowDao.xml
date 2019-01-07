@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yrz.oa.workflow.dao.WorkFLowDao">
+<mapper namespace="com.yrz.oa.core.dao.WorkFLowDao">
     <!--start: need to deal with approve -->
     <select id="selectNotDealWithFirstApply" resultType="Apply">
      select apply.applyUser,apply.applyId,apply.applyCreateTime,apply.applyContent,apply.applyTitle

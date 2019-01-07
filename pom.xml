@@ -7,7 +7,6 @@
   <groupId>com.yrz.oa</groupId>
   <artifactId>yrzoa</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
 
   <name>yrzoa Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
@@ -128,7 +127,11 @@
       <version>1.7.22</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-nop</artifactId>
+           <version>1.7.2</version>
+       </dependency>
     <!-- https://mvnrepository.com/artifact/log4j/log4j -->
     <dependency>
       <groupId>log4j</groupId>
@@ -400,11 +403,19 @@
     </dependency>
 
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.2</version>
     </dependency>
   </dependencies>
+
+  <packaging>war</packaging>
 
   <build>
     <finalName>yrzoa</finalName>
@@ -455,6 +466,18 @@
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

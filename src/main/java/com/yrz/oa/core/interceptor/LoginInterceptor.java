@@ -35,6 +35,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		if (url.indexOf("/oaSystem/toMain.action")>=0){
 			 return true;
+		}if (url.indexOf("/oaSystem/toApply.action")>=0){
+			return true;
 		}
 		// 获取Session
 		HttpSession session = request.getSession();

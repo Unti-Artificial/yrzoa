@@ -1,4 +1,4 @@
-package com.yrz.oa.workflow.po;
+package com.yrz.oa.core.po;
 
 public class SecondApprove {
       private Integer secondApproveId;

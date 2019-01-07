@@ -20,7 +20,6 @@ public class InformController {
     private InformService informService;
     @Autowired
     private OaUserService oaUserService;
-
     /**
      *
      * @param inform
@@ -36,7 +35,6 @@ public class InformController {
           return "false";
       }
     }
-
     /**
      *
      * @param inform

@@ -1,29 +1,33 @@
-package com.yrz.oa.workflow.service.impl;
+package com.yrz.oa.core.service.impl;
 
-import com.yrz.oa.workflow.dao.WorkFLowDao;
-import com.yrz.oa.workflow.po.*;
+import com.yrz.oa.core.po.*;
+import com.yrz.oa.core.dao.WorkFLowDao;
+import com.yrz.oa.core.service.WorkFlowService;
+import com.yrz.oa.core.service.WorkLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("workFlowService")
 @Transactional
-public class WorkFlowServiceImpl implements WorkFLowDao {
+public class WorkFlowServiceImpl implements WorkFlowService {
     @Autowired
     private WorkFLowDao workFLowDao;
     @Override
-    public Apply selectNotDealWithFirstApply() {
+    public List<Apply> selectNotDealWithFirstApply() {
         return workFLowDao.selectNotDealWithFirstApply();
     }
 
     @Override
-    public Apply selectNotDealWithSecondApply() {
+    public  List<Apply> selectNotDealWithSecondApply() {
         return workFLowDao.selectNotDealWithSecondApply();
     }
 
     @Override
-    public Apply selectNotDealWithThirdApply() {
-        return workFLowDao.selectNotDealWithSecondApply();
+    public List<Apply> selectNotDealWithThirdApply() {
+        return workFLowDao.selectNotDealWithThirdApply();
     }
 
     @Override

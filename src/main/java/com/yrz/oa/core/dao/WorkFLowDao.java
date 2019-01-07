@@ -1,14 +1,13 @@
-package com.yrz.oa.workflow.service;
+package com.yrz.oa.core.dao;
 
-
-import com.yrz.oa.workflow.po.*;
+import com.yrz.oa.core.po.*;
 
 import java.util.List;
 
-public interface WorkFlowService {
-    Apply selectNotDealWithFirstApply();
-    Apply selectNotDealWithSecondApply();
-    Apply selectNotDealWithThirdApply();
+public interface WorkFLowDao {
+    List<Apply> selectNotDealWithFirstApply();
+    List<Apply> selectNotDealWithSecondApply();
+    List<Apply> selectNotDealWithThirdApply();
 
     int updateFirstApplyState(Apply apply);
     int firstApprove (FirstApprove firstApprove);

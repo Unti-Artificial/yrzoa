@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yrz.oa.workflow.dao.ApplyDao">
+<mapper namespace="com.yrz.oa.core.dao.ApplyDao">
     <!-- 由申请人发起申请,添加至申请表中,此时状态待审核 0 -->
     <insert id="StartApply" parameterType="Apply">
            insert into oa_workflow_apply

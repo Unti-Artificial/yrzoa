@@ -296,7 +296,7 @@
     }
     function doUpdate(){
         layui.use(['layer','jquery'],function () {
-            var $ = layui.$
+                var $ = layui.$
                 ,layer = layui.layer;
         $.ajax({
             type:"post",
@@ -313,6 +313,7 @@
                         }})
                 }
             }
+        })
         })
     }
 </script>

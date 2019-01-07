@@ -115,6 +115,9 @@
         </div>
         <!-- 表格主题区域 -->
         <div class="layui-container">
+
+            <button class="layui-btn layui-btn-normal" onclick="doAddInform()"
+             style="margin-top: 10px">发布公告</button>
             <table class="layui-table" lay-skin="line">
                 <colgroup>
                     <col width="150">
@@ -393,8 +396,7 @@
 
     }
     //添加公告
-    function doAddInform(informId) {
-
+    function doAddInform() {
     }
     //查看公告内容
     function doFindInformContent(informId) {

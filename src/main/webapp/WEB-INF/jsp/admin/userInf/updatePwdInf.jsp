@@ -145,9 +145,7 @@
 <script src="<%=basePath%>layui/layui.js"></script>
 <script src="<%=basePath%>js/jquery-1.11.3.min.js"></script>
 <script>
-
-
-    layui.use(['jquery', 'layer','element'], function (){
+    layui.use(['element'], function (){
         var element = layui.element;
     });
     function doClockOut(userName) {
@@ -290,29 +288,38 @@
             }
         })
     }
-    function doUpdatePwd(){
-            var newPassword = document.getElementById("newPassword").value;
-            var repeatPassword = document.getElementById("repeatPassword").value;
+    function doUpdatePwd() {
+        var newPassword = document.getElementById("newPassword").value;
+        var repeatPassword = document.getElementById("repeatPassword").value;
+        layui.use(['layer', 'jquery'], function () {
+            var $ = layui.$
+                , layer = layui.layer;
             if (newPassword == repeatPassword) {
-            $.ajax({
-                type: "post",
-                url: "<%=basePath%>oaSystem/doUpdatePwd.action",
-                data: $("#passwordForm").serialize(),
-                success(data) {
-                    if(data != null){
-                        alert("更改成功");
+                $.ajax({
+                    type: "post",
+                    url: "<%=basePath%>oaSystem/doUpdatePwd.action",
+                    data: $("#passwordForm").serialize(),
+                    success(data) {
+                        if (data != null) {
+                            layer.msg("更改成功", {
+                                icon: 1, time: 1000, end: function () {
+                                    location.reload();
+                                }
+                            })
+                        } else {
+                            layer.msg("更改失败", {
+                                icon: 2, time: 1000, end: function () {
+                                    location.reload();
+                                }
+                            })
+                        }
                     }
-                    else
-                    {
-                        alert("请联系管理员,系统出错")
-                    }
-                    }
-            })
-        }
-        else if (newPassword != repeatPassword) {
-              alert("两次密码输入不一致");
-              return false;
-        }
+                })
+            } else {
+                alert("两次密码输入不一致");
+                return false;
+            }
+        })
     }
 </script>
 </html>
